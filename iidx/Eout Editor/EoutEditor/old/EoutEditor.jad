@@ -1,0 +1,1461 @@
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+// Jad home page: http://www.kpdus.com/jad.html
+// Decompiler options: packimports(3) ansi 
+// Source File Name:   EoutEditor.java
+
+package net.ch2.ac.iidx;
+
+import com.cloudgarden.resource.SWTResourceManager;
+import java.io.File;
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.*;
+import net.ch2.ac.iidx.eout.Eout;
+import net.ch2.ac.iidx.eout.EoutSong;
+import org.eclipse.swt.custom.*;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.*;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.widgets.*;
+
+public class EoutEditor extends Composite
+{
+
+    public EoutEditor(Composite parent, int style)
+    {
+        super(parent, style);
+        SWTResourceManager.registerResourceUser(this);
+        writeMode = 12;
+        initGUI();
+    }
+
+    private void initGUI()
+    {
+        try
+        {
+            setSize(600, 400);
+            setBackground(SWTResourceManager.getColor(192, 192, 192));
+            FillLayout thisLayout = new FillLayout(256);
+            setLayout(thisLayout);
+            sashForm = new SashForm(this, 0);
+            recordTree = new Tree(sashForm, 0);
+            recordTree.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent evt)
+                {
+                    recordTreeWidgetSelected(evt);
+                }
+
+                final EoutEditor this$0;
+
+            
+            {
+                this$0 = EoutEditor.this;
+                super();
+            }
+            }
+);
+            recordHead = new TreeItem(recordTree, 0);
+            recordHead.setText("BEMANI records");
+            recordHead.setData("head");
+            recordHead.setForeground(SWTResourceManager.getColor(0, 0, 255));
+            songTabFolder = new CTabFolder(sashForm, 0);
+            Display display = Display.getDefault();
+            songTabFolder.setSelectionBackground(new Color[] {
+                display.getSystemColor(32), display.getSystemColor(1)
+            }, new int[] {
+                90
+            }, true);
+            songSet1CTabItem = new CTabItem(songTabFolder, 0);
+            songSet1CTabItem.setText("曲設定１"); // Song settings 1
+            songSet1ScrolledComposite = new ScrolledComposite(songTabFolder, 2816);
+            songSet1CTabItem.setControl(songSet1ScrolledComposite);
+            songSet1ScrolledComposite.setBackground(SWTResourceManager.getColor(212, 208, 200));
+            songSet1ScrolledComposite.setEnabled(true);
+            songSet1Composite = new Composite(songSet1ScrolledComposite, 0);
+            songSet1Composite.setLayout(null);
+            songSet1ScrolledComposite.setContent(songSet1Composite);
+            songSet1Composite.setBounds(0, 0, 406, 203);
+            label6 = new Label(songSet1Composite, 0);
+            label6.setText("曲タイトル"); // Song Title
+            label6.setBounds(7, 14, 56, 14);
+            songNameText = new Text(songSet1Composite, 2052);
+            songNameText.setBounds(98, 7, 301, 21);
+            songNameText.setTextLimit(32);
+            label7 = new Label(songSet1Composite, 0);
+            label7.setText("ラベル定義名");  // Label name assigned
+            label7.setBounds(7, 42, 70, 14);
+            labelImageText = new Text(songSet1Composite, 2052);
+            labelImageText.setTextLimit(32);
+            labelImageText.setBounds(98, 35, 301, 21);
+            label8 = new Label(songSet1Composite, 0);
+            label8.setText("タイトル定義名"); // Title name assigned
+            label8.setBounds(7, 70, 77, 14);
+            titleImageText = new Text(songSet1Composite, 2052);
+            titleImageText.setTextLimit(32);
+            titleImageText.setBounds(98, 63, 301, 21);
+            label9 = new Label(songSet1Composite, 0);
+            label9.setText("マーク定義名");  // Mark name assigned
+            label9.setBounds(7, 98, 70, 14);
+            markImageText = new Text(songSet1Composite, 2052);
+            markImageText.setTextLimit(32);
+            markImageText.setBounds(98, 91, 301, 21);
+            label11 = new Label(songSet1Composite, 0);
+            label11.setText("ジャンル定義名"); // Genre name assigned
+            label11.setBounds(7, 126, 77, 14);
+            genreImageText = new Text(songSet1Composite, 2052);
+            genreImageText.setTextLimit(32);
+            genreImageText.setBounds(98, 119, 301, 21);
+            label12 = new Label(songSet1Composite, 0);
+            label12.setText("アーティスト定義名"); // Artist name assigned
+            label12.setBounds(7, 154, 91, 14);
+            artistImageText = new Text(songSet1Composite, 2052);
+            artistImageText.setTextLimit(32);
+            artistImageText.setBounds(98, 147, 301, 21);
+            songSet1Button = new Button(songSet1Composite, 0x1000008);
+            songSet1Button.setText("書き換え"); // write changes
+            songSet1Button.setBounds(98, 175, 63, 21);
+            songSet1Button.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent evt)
+                {
+                    songSet1ButtonWidgetSelected(evt);
+                }
+
+                final EoutEditor this$0;
+
+            
+            {
+                this$0 = EoutEditor.this;
+                super();
+            }
+            }
+);
+            text1 = new Text(songSet1Composite, 2052);
+            text1.setTextLimit(32);
+            text1.setBounds(98, 7, 301, 21);
+            songSet2CTabItem = new CTabItem(songTabFolder, 0);
+            songSet2CTabItem.setText("曲設定２"); // song settings 2
+            songSet2ScrolledComposite = new ScrolledComposite(songTabFolder, 2816);
+            songSet2CTabItem.setControl(songSet2ScrolledComposite);
+            songSet2ScrolledComposite.setEnabled(true);
+            songSet2Composite = new Composite(songSet2ScrolledComposite, 0);
+            songSet2Composite.setLayout(null);
+            songSet2ScrolledComposite.setContent(songSet2Composite);
+            songSet2Composite.setBounds(0, 0, 266, 182);
+            label13 = new Label(songSet2Composite, 0);
+            label13.setText("選曲フォルダ"); // Selected song folder
+            label13.setBounds(7, 14, 63, 14);
+            versionFolderCombo = new Combo(songSet2Composite, 0);
+            versionFolderCombo.setBounds(70, 7, 105, 21);
+            versionFolderCombo.add("1st style");
+            versionFolderCombo.add("sub stream");
+            versionFolderCombo.add("2nd style");
+            versionFolderCombo.add("3rd style");
+            versionFolderCombo.add("4th style");
+            versionFolderCombo.add("5th style");
+            versionFolderCombo.add("6th style");
+            versionFolderCombo.add("7th style");
+            versionFolderCombo.add("8th style");
+            versionFolderCombo.add("9th style");
+            versionFolderCombo.add("10th style");
+            versionFolderCombo.add("IIDX RED");
+            versionFolderCombo.add("HAPPY SKY");
+            otherFolderButton = new Button(songSet2Composite, 16416);
+            otherFolderButton.setText("Otherフォルダに追加"); // Add to other folder
+            otherFolderButton.setBounds(70, 35, 119, 14);
+            bemaniFolderButton = new Button(songSet2Composite, 16416);
+            bemaniFolderButton.setText("BEMANIフォルダに追加"); // Add to BEMANI folder
+            bemaniFolderButton.setBounds(70, 56, 133, 14);
+            bemaniFolderButton.setVisible(false);
+            battleAllowedButton = new Button(songSet2Composite, 16416);
+            battleAllowedButton.setText("バトル可能譜面"); // Battle enabled music
+            battleAllowedButton.setBounds(70, 77, 98, 14);
+            battleAllowedButton.setVisible(false);
+            label14 = new Label(songSet2Composite, 0);
+            label14.setText("モードタイプ (3,4,6,7)"); // mode type
+            label14.setBounds(7, 63, 98, 14);
+            label14.setVisible(false);
+            modeTypeText = new Text(songSet2Composite, 2048);
+            modeTypeText.setBounds(112, 56, 21, 21);
+            modeTypeText.setVisible(false);
+            label28 = new Label(songSet2Composite, 0);
+            label28.setText("譜面要素"); // Music element
+            label28.setBounds(182, 63, 49, 14);
+            label28.setEnabled(false);
+            label28.setVisible(false);
+            noteAssortText = new Text(songSet2Composite, 2048);
+            noteAssortText.setBounds(238, 56, 21, 21);
+            noteAssortText.setEditable(false);
+            noteAssortText.setVisible(false);
+            label24 = new Label(songSet2Composite, 0);
+            label24.setText("BPM");
+            label24.setBounds(7, 91, 28, 14);
+            label24.setVisible(false);
+            bpmText = new Text(songSet2Composite, 2048);
+            bpmText.setBounds(70, 84, 35, 21);
+            bpmText.setVisible(false);
+            label25 = new Label(songSet2Composite, 0);
+            label25.setText("最大BPM"); // Highest BPM
+            label25.setBounds(168, 91, 49, 14);
+            label25.setVisible(false);
+            bpmMaximumText = new Text(songSet2Composite, 2048);
+            bpmMaximumText.setBounds(224, 84, 35, 21);
+            bpmMaximumText.setVisible(false);
+            label15 = new Label(songSet2Composite, 0);
+            label15.setText("難易度"); // Difficulty
+            label15.setBounds(7, 126, 42, 14);
+            label16 = new Label(songSet2Composite, 0);
+            label16.setText("N7 ");
+            label16.setBounds(70, 112, 21, 14);
+            levelNormal7Text = new Text(songSet2Composite, 2048);
+            levelNormal7Text.setBounds(70, 126, 21, 21);
+            label17 = new Label(songSet2Composite, 0);
+            label17.setText("H7 ");
+            label17.setBounds(98, 112, 21, 14);
+            levelHyper7Text = new Text(songSet2Composite, 2048);
+            levelHyper7Text.setBounds(98, 126, 21, 21);
+            label18 = new Label(songSet2Composite, 0);
+            label18.setText("A7 ");
+            label18.setBounds(126, 112, 21, 14);
+            levelAnother7Text = new Text(songSet2Composite, 2048);
+            levelAnother7Text.setBounds(126, 126, 21, 21);
+            label19 = new Label(songSet2Composite, 0);
+            label19.setText("N14");
+            label19.setBounds(154, 112, 21, 14);
+            levelNormal14Text = new Text(songSet2Composite, 2048);
+            levelNormal14Text.setBounds(154, 126, 21, 21);
+            label20 = new Label(songSet2Composite, 0);
+            label20.setText("H14");
+            label20.setBounds(182, 112, 21, 14);
+            levelHyper14Text = new Text(songSet2Composite, 2048);
+            levelHyper14Text.setBounds(182, 126, 21, 21);
+            label21 = new Label(songSet2Composite, 0);
+            label21.setText("A14");
+            label21.setBounds(210, 112, 21, 14);
+            levelAnother14Text = new Text(songSet2Composite, 2048);
+            levelAnother14Text.setBounds(210, 126, 21, 21);
+            label23 = new Label(songSet2Composite, 0);
+            label23.setText("B7");
+            label23.setBounds(238, 112, 21, 14);
+            levelBeginner7Text = new Text(songSet2Composite, 2048);
+            levelBeginner7Text.setBounds(238, 126, 21, 21);
+            songSet2Button = new Button(songSet2Composite, 0x1000008);
+            songSet2Button.setText("書き換え"); // Write changes
+            songSet2Button.setBounds(70, 154, 63, 21);
+            songSet2Button.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent evt)
+                {
+                    songSet2ButtonWidgetSelected(evt);
+                }
+
+                final EoutEditor this$0;
+
+            
+            {
+                this$0 = EoutEditor.this;
+                super();
+            }
+            }
+);
+            songSet3CTabItem = new CTabItem(songTabFolder, 0);
+            songSet3CTabItem.setText("曲設定３"); // Song settings 3
+            songSet3ScrolledComposite = new ScrolledComposite(songTabFolder, 2816);
+            songSet3CTabItem.setControl(songSet3ScrolledComposite);
+            songSet3ScrolledComposite.setEnabled(true);
+            songSet3Composite = new Composite(songSet3ScrolledComposite, 0);
+            songSet3Composite.setLayout(null);
+            songSet3ScrolledComposite.setContent(songSet3Composite);
+            songSet3Composite.setBounds(0, 0, 315, 161);
+            label30 = new Label(songSet3Composite, 0);
+            label30.setText("データフォルダ名"); // Data folder name
+            label30.setBounds(7, 14, 84, 14);
+            songFolderText = new Text(songSet3Composite, 2048);
+            songFolderText.setText("1299");
+            songFolderText.setBounds(91, 7, 35, 21);
+            songFolderText.setEditable(false);
+            label32 = new Label(songSet3Composite, 0);
+            label32.setText("楽曲ボリューム"); // Music volume
+            label32.setBounds(7, 42, 70, 14);
+            volumeText = new Text(songSet3Composite, 2048);
+            volumeText.setText("100");
+            volumeText.setBounds(91, 35, 28, 21);
+            label33 = new Label(songSet3Composite, 0);
+            label33.setText("％");
+            label33.setBounds(119, 42, 14, 14);
+            volumeScale = new Scale(songSet3Composite, 0);
+            volumeScale.setSelection(100);
+            volumeScale.setMaximum(255);
+            volumeScale.setBounds(133, 14, 175, 42);
+            volumeScale.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent evt)
+                {
+                    volumeScaleWidgetSelected(evt);
+                }
+
+                final EoutEditor this$0;
+
+            
+            {
+                this$0 = EoutEditor.this;
+                super();
+            }
+            }
+);
+            label47 = new Label(songSet3Composite, 0);
+            label47.setText("2dxファイル"); // 2dx file
+            label47.setBounds(7, 77, 63, 14);
+            label39 = new Label(songSet3Composite, 0);
+            label39.setText("N7 ");
+            label39.setBounds(91, 63, 21, 14);
+            fileNoramal7Text = new Text(songSet3Composite, 2048);
+            fileNoramal7Text.setBounds(91, 77, 21, 21);
+            label40 = new Label(songSet3Composite, 0);
+            label40.setText("H7 ");
+            label40.setBounds(119, 63, 21, 14);
+            fileHyper7Text = new Text(songSet3Composite, 2048);
+            fileHyper7Text.setBounds(119, 77, 21, 21);
+            label41 = new Label(songSet3Composite, 0);
+            label41.setText("A7 ");
+            label41.setBounds(147, 63, 21, 14);
+            fileAnother7Text = new Text(songSet3Composite, 2048);
+            fileAnother7Text.setBounds(147, 77, 21, 21);
+            label42 = new Label(songSet3Composite, 0);
+            label42.setText("N14");
+            label42.setBounds(175, 63, 21, 14);
+            fileNoramal14Text = new Text(songSet3Composite, 2048);
+            fileNoramal14Text.setBounds(175, 77, 21, 21);
+            label43 = new Label(songSet3Composite, 0);
+            label43.setText("H14");
+            label43.setBounds(203, 63, 21, 14);
+            fileHyper14Text = new Text(songSet3Composite, 2048);
+            fileHyper14Text.setBounds(203, 77, 21, 21);
+            label44 = new Label(songSet3Composite, 0);
+            label44.setText("A14");
+            label44.setBounds(231, 63, 21, 14);
+            fileAnother14Text = new Text(songSet3Composite, 2048);
+            fileAnother14Text.setBounds(231, 77, 21, 21);
+            label46 = new Label(songSet3Composite, 0);
+            label46.setText("B7");
+            label46.setBounds(259, 63, 21, 14);
+            fileBeginner7Text = new Text(songSet3Composite, 2048);
+            fileBeginner7Text.setBounds(259, 77, 21, 21);
+            songSet3button = new Button(songSet3Composite, 0x1000008);
+            songSet3button.setText("書き換え"); // Write changes
+            songSet3button.setBounds(91, 105, 63, 21);
+            songSet3button.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent evt)
+                {
+                    songSet3buttonWidgetSelected(evt);
+                }
+
+                final EoutEditor this$0;
+
+            
+            {
+                this$0 = EoutEditor.this;
+                super();
+            }
+            }
+);
+            movieSetCTabItem = new CTabItem(songTabFolder, 0);
+            movieSetCTabItem.setText("ムービー設定"); // Movie settings
+            movieSetScrolledComposite = new ScrolledComposite(songTabFolder, 2816);
+            movieSetCTabItem.setControl(movieSetScrolledComposite);
+            movieSetScrolledComposite.setEnabled(true);
+            movieSetComposite = new Composite(movieSetScrolledComposite, 0);
+            movieSetComposite.setLayout(null);
+            movieSetScrolledComposite.setContent(movieSetComposite);
+            movieSetComposite.setBounds(0, 0, 406, 112);
+            label1 = new Label(movieSetComposite, 0);
+            label1.setText("ムービーファイル名"); // Movie file name
+            label1.setBounds(7, 14, 84, 14);
+            movieFileText = new Text(movieSetComposite, 2048);
+            movieFileText.setBounds(105, 7, 294, 21);
+            movieFileText.setTextLimit(32);
+            label2 = new Label(movieSetComposite, 0);
+            label2.setText("再生開始タイミング"); // Movie playback start timing
+            label2.setBounds(7, 42, 91, 14);
+            movieDelayScale = new Scale(movieSetComposite, 0);
+            movieDelayScale.setBounds(147, 35, 259, 42);
+            movieDelayScale.setMaximum(255);
+            movieDelayScale.setSelection(128);
+            movieDelayScale.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent evt)
+                {
+                    movieDelayScaleWidgetSelected(evt);
+                }
+
+                final EoutEditor this$0;
+
+            
+            {
+                this$0 = EoutEditor.this;
+                super();
+            }
+            }
+);
+            movieDelayText = new Text(movieSetComposite, 2052);
+            movieDelayText.setBounds(105, 35, 35, 21);
+            movieDelayText.setText("0");
+            movieModeButton = new Button(movieSetComposite, 16416);
+            movieModeButton.setText("ムービーモード"); // Movie mode
+            movieModeButton.setBounds(7, 63, 91, 21);
+            movieModeButton.setVisible(false);
+            movieSetButton = new Button(movieSetComposite, 0x1000008);
+            movieSetButton.setText("書き換え"); // Write settings
+            movieSetButton.setBounds(105, 84, 63, 21);
+            movieSetButton.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent evt)
+                {
+                    movieSetButtonWidgetSelected(evt);
+                }
+
+                final EoutEditor this$0;
+
+            
+            {
+                this$0 = EoutEditor.this;
+                super();
+            }
+            }
+);
+            titleSetCTabItem = new CTabItem(songTabFolder, 0);
+            titleSetCTabItem.setText("タイトル設定"); // Title settings
+            titleSetScrolledComposite = new ScrolledComposite(songTabFolder, 2816);
+            titleSetCTabItem.setControl(titleSetScrolledComposite);
+            titleSetScrolledComposite.setEnabled(true);
+            titleSetComposite = new Composite(titleSetScrolledComposite, 0);
+            titleSetComposite.setLayout(null);
+            titleSetScrolledComposite.setContent(titleSetComposite);
+            titleSetComposite.setBounds(0, 0, 420, 91);
+            label3 = new Label(titleSetComposite, 0);
+            label3.setBounds(7, 14, 98, 14);
+            label3.setText("タイトル画像定義名"); // Title image assigned name
+            innerTitleText = new Text(titleSetComposite, 2048);
+            innerTitleText.setTextLimit(32);
+            innerTitleText.setBounds(119, 7, 294, 21);
+            titleSetButton = new Button(titleSetComposite, 0x1000008);
+            titleSetButton.setText("書き換え"); // Write changes
+            titleSetButton.setBounds(119, 63, 63, 21);
+            titleSetButton.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent evt)
+                {
+                    titleSetButtonWidgetSelected(evt);
+                }
+
+                final EoutEditor this$0;
+
+            
+            {
+                this$0 = EoutEditor.this;
+                super();
+            }
+            }
+);
+            innerImageFolderText = new Text(titleSetComposite, 2048);
+            innerImageFolderText.setBounds(119, 35, 294, 21);
+            innerImageFolderText.setTextLimit(32);
+            label4 = new Label(titleSetComposite, 0);
+            label4.setText("タイトル画像フォルダ名"); // Title image folder name
+            label4.setBounds(7, 42, 119, 14);
+            layerSetCTabItem = new CTabItem(songTabFolder, 0);
+            layerSetCTabItem.setText("レイヤー設定"); // Layer settings
+            layerSetScrolledComposite = new ScrolledComposite(songTabFolder, 2816);
+            layerSetCTabItem.setControl(layerSetScrolledComposite);
+            layerSetScrolledComposite.setEnabled(true);
+            layerSetComposite = new Composite(layerSetScrolledComposite, 0);
+            layerSetComposite.setLayout(null);
+            layerSetScrolledComposite.setContent(layerSetComposite);
+            layerSetComposite.setBounds(0, 0, 413, 252);
+            layerpointButton = new Button(layerSetComposite, 16416);
+            layerpointButton.setText("レイヤー指定"); // Layers assigned
+            layerpointButton.setBounds(7, 7, 84, 21);
+            layerGgroup = new Group(layerSetComposite, 0);
+            layerGgroup.setLayout(null);
+            layerGgroup.setText("レイヤー 0～8"); // Layer 0~8
+            layerGgroup.setBounds(98, 7, 308, 210);
+            layer0Text = new Text(layerGgroup, 2052);
+            layer0Text.setBounds(7, 14, 294, 21);
+            layer0Text.setTextLimit(32);
+            layer1Text = new Text(layerGgroup, 2052);
+            layer1Text.setBounds(7, 35, 294, 21);
+            layer1Text.setTextLimit(32);
+            layer2Text = new Text(layerGgroup, 2052);
+            layer2Text.setBounds(7, 56, 294, 21);
+            layer2Text.setTextLimit(32);
+            layer3Text = new Text(layerGgroup, 2052);
+            layer3Text.setBounds(7, 77, 294, 21);
+            layer3Text.setTextLimit(32);
+            layer4Text = new Text(layerGgroup, 2052);
+            layer4Text.setBounds(7, 98, 294, 21);
+            layer4Text.setTextLimit(32);
+            layer5Text = new Text(layerGgroup, 2052);
+            layer5Text.setBounds(7, 119, 294, 21);
+            layer5Text.setTextLimit(32);
+            layer6Text = new Text(layerGgroup, 2052);
+            layer6Text.setBounds(7, 140, 294, 21);
+            layer6Text.setTextLimit(32);
+            layer7Text = new Text(layerGgroup, 2052);
+            layer7Text.setBounds(7, 161, 294, 21);
+            layer7Text.setTextLimit(32);
+            layer8Text = new Text(layerGgroup, 2052);
+            layer8Text.setBounds(7, 182, 294, 21);
+            layer8Text.setTextLimit(32);
+            layerSetButton = new Button(layerSetComposite, 0x1000008);
+            layerSetButton.setText("書き換え"); // Write changes
+            layerSetButton.setBounds(7, 224, 63, 21);
+            layerSetButton.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent evt)
+                {
+                    layerSetButtonWidgetSelected(evt);
+                }
+
+                final EoutEditor this$0;
+
+            
+            {
+                this$0 = EoutEditor.this;
+                super();
+            }
+            }
+);
+            songTabFolder.setBorderVisible(true);
+            songTabFolder.setBackground(SWTResourceManager.getColor(255, 255, 255));
+            songTabFolder.setSelection(0);
+            sashForm.setBackground(SWTResourceManager.getColor(255, 255, 255));
+            sashForm.setWeights(new int[] {
+                22, 78
+            });
+            menu1 = new Menu(getShell(), 2);
+            getShell().setMenuBar(menu1);
+            fileMenuItem = new MenuItem(menu1, 64);
+            fileMenuItem.setText("ファイル"); // File
+            fileMenu = new Menu(fileMenuItem);
+            openFileMenuItem = new MenuItem(fileMenu, 64);
+            openFileMenuItem.setText("eout.decを開く"); // Open eout.dec 
+            openFileMenuItem.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent evt)
+                {
+                    openDecMenuItemWidgetSelected(evt);
+                }
+
+                final EoutEditor this$0;
+
+            
+            {
+                this$0 = EoutEditor.this;
+                super();
+            }
+            }
+);
+            open2MenuItem = new MenuItem(fileMenu, 64);
+            open2MenuItem.setText("eout.csvを開く"); // Open eout.csv
+            open2MenuItem.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent evt)
+                {
+                    openCsvMenuItemWidgetSelected(evt);
+                }
+
+                final EoutEditor this$0;
+
+            
+            {
+                this$0 = EoutEditor.this;
+                super();
+            }
+            }
+);
+            menuItem1 = new MenuItem(fileMenu, 2);
+            menuItem1.setText("menuItem1");
+            saveFileMenuItem = new MenuItem(fileMenu, 64);
+            saveFileMenuItem.setText("上書き保存"); // Save
+            saveFileMenuItem.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent evt)
+                {
+                    saveFileMenuItemWidgetSelected(evt);
+                }
+
+                final EoutEditor this$0;
+
+            
+            {
+                this$0 = EoutEditor.this;
+                super();
+            }
+            }
+);
+            saveAsMenuItem = new MenuItem(fileMenu, 64);
+            saveAsMenuItem.setText("名前を付けて保存"); // Save as
+            saveAsMenuItem.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent evt)
+                {
+                    saveAsMenuItemWidgetSelected(evt);
+                }
+
+                final EoutEditor this$0;
+
+            
+            {
+                this$0 = EoutEditor.this;
+                super();
+            }
+            }
+);
+            menuItem2 = new MenuItem(fileMenu, 2);
+            menuItem2.setText("menuItem2");
+            exitMenuItem = new MenuItem(fileMenu, 64);
+            exitMenuItem.setText("終了"); // Exit
+            exitMenuItem.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent evt)
+                {
+                    exitFileMenuItemWidgetSelected(evt);
+                }
+
+                final EoutEditor this$0;
+
+            
+            {
+                this$0 = EoutEditor.this;
+                super();
+            }
+            }
+);
+            fileMenuItem.setMenu(fileMenu);
+            settingMenuItem = new MenuItem(menu1, 64);
+            settingMenuItem.setText("CSV設定"); // CSV settings
+            settingMenu = new Menu(settingMenuItem);
+            settingMenuItem.setMenu(settingMenu);
+            hsMenuItem = new MenuItem(settingMenu, 16);
+            hsMenuItem.setText("HSモード"); // HS mode
+            hsMenuItem.setSelection(true);
+            hsMenuItem.setData("");
+            hsMenuItem.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent evt)
+                {
+                    modeMenuItemWidgetSelected(evt);
+                }
+
+                final EoutEditor this$0;
+
+            
+            {
+                this$0 = EoutEditor.this;
+                super();
+            }
+            }
+);
+            ddMenuItem1 = new MenuItem(settingMenu, 16);
+            ddMenuItem1.setText("DDモード"); // DD Mode
+            ddMenuItem1.setData("_dd");
+            ddMenuItem1.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent evt)
+                {
+                    modeMenuItemWidgetSelected(evt);
+                }
+
+                final EoutEditor this$0;
+
+            
+            {
+                this$0 = EoutEditor.this;
+                super();
+            }
+            }
+);
+            gdMenuItem1 = new MenuItem(settingMenu, 16);
+            gdMenuItem1.setText("GDモード"); // GD mode
+            gdMenuItem1.setData("_gd");
+            gdMenuItem1.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent evt)
+                {
+                    modeMenuItemWidgetSelected(evt);
+                }
+
+                final EoutEditor this$0;
+
+            
+            {
+                this$0 = EoutEditor.this;
+                super();
+            }
+            }
+);
+            menuItem3 = new MenuItem(menu1, 64);
+            menuItem3.setText("レコード設定"); // Record settings
+            menuItem3.setEnabled(true);
+            menu2 = new Menu(menuItem3);
+            menuItem3.setMenu(menu2);
+            expandMenuItem = new MenuItem(menu2, 8);
+            expandMenuItem.setText("100曲拡張"); // Expand by 100 songs
+            expandMenuItem.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent evt)
+                {
+                    expandMenuItemWidgetSelected(evt);
+                }
+
+                final EoutEditor this$0;
+
+            
+            {
+                this$0 = EoutEditor.this;
+                super();
+            }
+            }
+);
+            helpMenuItem = new MenuItem(menu1, 64);
+            helpMenuItem.setText("ヘルプ"); // Help
+            helpMenu = new Menu(helpMenuItem);
+            aboutMenuItem = new MenuItem(helpMenu, 64);
+            aboutMenuItem.setText("EditOutについて"); // About EditOut
+            aboutMenuItem.addSelectionListener(new SelectionAdapter() {
+
+                public void widgetSelected(SelectionEvent evt)
+                {
+                    aboutMenuItemWidgetSelected(evt);
+                }
+
+                final EoutEditor this$0;
+
+            
+            {
+                this$0 = EoutEditor.this;
+                super();
+            }
+            }
+);
+            helpMenuItem.setMenu(helpMenu);
+            layout();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String args[])
+    {
+        try
+        {
+            Display display = Display.getDefault();
+            shell = new Shell(display);
+            EoutEditor inst = new EoutEditor(shell, 2048);
+            Point size = inst.getSize();
+            shell.setLayout(new FillLayout());
+            shell.setText("EditOut - 2nd style -");
+            shell.setToolTipText("ふぁーすと すたいる"); // First Style
+            shell.setImage(SWTResourceManager.getImage("icons/tran.gif"));
+            if(size.x == 0 && size.y == 0)
+            {
+                inst.pack();
+                shell.pack();
+            } else
+            {
+                Rectangle shellBounds = shell.computeTrim(0, 0, size.x, size.y);
+                shell.setSize(shellBounds.width, shellBounds.height);
+            }
+            shell.open();
+            while(!shell.isDisposed()) 
+                if(!display.readAndDispatch())
+                    display.sleep();
+        }
+        catch(NullPointerException e)
+        {
+            Display display = Display.getDefault();
+            Shell shell = new Shell(display);
+            MessageBox box1 = new MessageBox(shell, 32);
+            box1.setText("EditOut ＜ぬるぽ"); // Fuck you if you think I'm translating the ascii art
+            box1.setMessage("　　 （　・∀・）　　　|　|　ｶﾞｯ\n　　と　　　　）　 　 |　|\n　　　 Ｙ　/ノ　　　 人\n　　　　 /　）　 　 < 　>__Λ∩\n　　 ＿/し'　／／. Ｖ｀Д\264）/\n　　（＿フ彡　　　　　 　　/ 　←>>EditOutHS");
+            shell.dispose();
+            display = null;
+        }
+    }
+
+    private void exitFileMenuItemWidgetSelected(SelectionEvent evt)
+    {
+        if(isUpdate)
+        {
+            Display display = Display.getDefault();
+            Shell shell = new Shell(display);
+            MessageBox box1 = new MessageBox(shell, 288);
+            box1.setText("確認"); // Confirm
+            box1.setMessage("更新されたデータがありますがこのまま終了しますか？"); // Data has been changed, are you sure you want to exit without saving?
+            int answer = box1.open();
+            shell.dispose();
+            display = null;
+            if(answer == 256)
+                return;
+        }
+        System.exit(0);
+    }
+
+    private void openDecMenuItemWidgetSelected(SelectionEvent evt)
+    {
+        FileDialog openDialog = new FileDialog(shell, 4096);
+        openDialog.setFilterPath(".\\");
+        openDialog.setFilterExtensions(new String[] {
+            "*.dec;*eout*"
+        });
+        String loadEoutPath = openDialog.open();
+        if(loadEoutPath != null)
+        {
+            try
+            {
+                eout = new Eout(loadEoutPath);
+                createTreeItem(eout);
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+            songSet1Composite.setVisible(false);
+            songSet2Composite.setVisible(false);
+            songSet3Composite.setVisible(false);
+            movieSetComposite.setVisible(false);
+            titleSetComposite.setVisible(false);
+            layerSetComposite.setVisible(false);
+        }
+    }
+
+    private void openCsvMenuItemWidgetSelected(SelectionEvent evt)
+    {
+        FileDialog openDialog = new FileDialog(shell, 4096);
+        openDialog.setFilterPath(".\\");
+        openDialog.setFilterExtensions(new String[] {
+            "*.csv"
+        });
+        String loadCsvPath = openDialog.open();
+        if(loadCsvPath != null)
+        {
+            try
+            {
+                eout = new Eout(loadCsvPath, (new StringBuilder(String.valueOf(openDialog.getFilterPath()))).append("\\eout.dec").toString(), writeMode);
+                createTreeItem(eout);
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+            songSet1Composite.setVisible(false);
+            songSet2Composite.setVisible(false);
+            songSet3Composite.setVisible(false);
+            movieSetComposite.setVisible(false);
+            titleSetComposite.setVisible(false);
+            layerSetComposite.setVisible(false);
+        }
+    }
+
+    private void createTreeItem(Eout eout)
+    {
+        recordHead.removeAll();
+        TreeMap indexs = eout.getSongsIndex();
+        TreeMap songs = eout.getSongs();
+        String index = null;
+        TreeItem songItem = null;
+        for(Iterator iterator = indexs.keySet().iterator(); iterator.hasNext(); songItem.setData(index))
+        {
+            String address = (String)iterator.next();
+            index = (String)indexs.get(address);
+            songItem = new TreeItem(recordHead, 0);
+            if(index.equals(""))
+            {
+                songItem.setText(address);
+                songItem.setForeground(SWTResourceManager.getColor(150, 150, 150));
+            } else
+            {
+                song = (EoutSong)songs.get(index);
+                songItem.setText(song.getSongnameString());
+            }
+        }
+
+        if(versionFolderCombo.getItemCount() == 14)
+            versionFolderCombo.remove("DistorteD");
+        else
+        if(versionFolderCombo.getItemCount() == 15)
+        {
+            versionFolderCombo.remove("DistorteD");
+            versionFolderCombo.remove("GOLD");
+        }
+        version = eout.getEoutVersion();
+        if(version == 728)
+        {
+            shell.setImage(SWTResourceManager.getImage("icons/tran.gif"));
+            label14.setVisible(true);
+            modeTypeText.setVisible(true);
+            label24.setVisible(true);
+            bpmText.setVisible(true);
+            label25.setText("最大BPM"); // Highest BPM
+            label25.setVisible(true);
+            bpmMaximumText.setVisible(true);
+            label28.setVisible(true);
+            noteAssortText.setVisible(true);
+            battleAllowedButton.setVisible(false);
+            bemaniFolderButton.setVisible(false);
+            movieModeButton.setVisible(true);
+        } else
+        if(version == 680)
+        {
+            shell.setImage(SWTResourceManager.getImage("icons/tran_dd.gif"));
+            label14.setVisible(false);
+            modeTypeText.setVisible(false);
+            label24.setVisible(true);
+            bpmText.setVisible(true);
+            label25.setText("最小BPM"); // Lowest BPM
+            label25.setVisible(true);
+            bpmMaximumText.setVisible(true);
+            label28.setVisible(false);
+            noteAssortText.setVisible(false);
+            battleAllowedButton.setVisible(false);
+            bemaniFolderButton.setVisible(true);
+            movieModeButton.setVisible(false);
+            versionFolderCombo.add("DistorteD");
+        } else
+        if(version == 796)
+        {
+            shell.setImage(SWTResourceManager.getImage("icons/tran_gd.gif"));
+            label14.setVisible(false);
+            modeTypeText.setVisible(false);
+            label24.setVisible(false);
+            bpmText.setVisible(false);
+            label25.setVisible(false);
+            bpmMaximumText.setVisible(false);
+            label28.setVisible(false);
+            noteAssortText.setVisible(false);
+            battleAllowedButton.setVisible(true);
+            bemaniFolderButton.setVisible(true);
+            movieModeButton.setVisible(false);
+            versionFolderCombo.add("DistorteD");
+            versionFolderCombo.add("GOLD");
+        }
+    }
+
+    private void aboutMenuItemWidgetSelected(SelectionEvent evt)
+    {
+        String selif;
+        switch((int)(Math.random() * 10D))
+        {
+        case 0: // '\0'
+            selif = "IIDX Goooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooold !";
+            break;
+
+        case 1: // '\001'
+            selif = "30中年AVパワー"; // 30 years of Porn Power
+            break;
+
+        case 2: // '\002'
+            selif = "I'm 神々"; // I'm The Gods
+            break;
+
+        case 3: // '\003'
+            selif = "パスタ"; // Pasta
+            break;
+
+        case 4: // '\004'
+            selif = "3倍アイスクリーム"; // 3x Ice Cream
+            break;
+
+        default:
+            selif = "・・・";
+            break;
+        }
+        Display display = Display.getDefault();
+        Shell shell = new Shell(display);
+        MessageBox box1 = new MessageBox(shell, 32);
+        box1.setText("EditOutについて"); // About EditOut
+        box1.setMessage((new StringBuilder("　　　　　　 |￣ \r\n　( ﾟдﾟ )　 | 　＜ ")).append(selif).append("\r\n　|　ヽﾉヽr┘\r\n　 ＞＞　'Ｔ").toString());
+        box1.open();
+        shell.dispose();
+        display = null;
+    }
+
+    private void saveFileMenuItemWidgetSelected(SelectionEvent evt)
+    {
+        if(eout != null)
+        {
+            String result;
+            try
+            {
+                eout.saveEout();
+                result = "保存しました。"; // Saved
+                isUpdate = false;
+                if((new File("createeout.exe")).exists())
+                {
+                    String path = eout.getSourcePath();
+                    Runtime.getRuntime().exec((new StringBuilder(".\\createeout.exe ")).append(path).append(" ").append(path.substring(0, path.lastIndexOf('\\') + 1)).append("eout.bin").toString());
+                }
+            }
+            catch(Exception e)
+            {
+                result = "保存できませんでした。"; // Attempt to save failed
+                e.printStackTrace();
+            }
+            MessageBox box1 = new MessageBox(shell, 32);
+            box1.setText("保存結果"); // Save results
+            box1.setMessage(result);
+            box1.open();
+        }
+    }
+
+    private void saveAsMenuItemWidgetSelected(SelectionEvent evt)
+    {
+        FileDialog saveDialog = new FileDialog(shell, 8192);
+        saveDialog.setFilterPath(".\\");
+        saveDialog.setFilterExtensions(new String[] {
+            "*.dec;*eout*"
+        });
+        saveDialog.setFileName("eout.dec");
+        String saveEoutPath = saveDialog.open();
+        if(saveEoutPath != null && eout != null)
+        {
+            String result;
+            try
+            {
+                eout.saveAsEout(saveEoutPath);
+                result = "保存しました。"; // Saved
+                isUpdate = false;
+                if((new File("createeout.exe")).exists())
+                {
+                    String path = eout.getSourcePath();
+                    Runtime.getRuntime().exec((new StringBuilder(".\\createeout.exe ")).append(path).append(" ").append(path.substring(0, path.lastIndexOf('\\') + 1)).append("eout.bin").toString());
+                }
+            }
+            catch(Exception e)
+            {
+                result = "保存できませんでした。"; // Attempt to save failed
+                e.printStackTrace();
+            }
+            MessageBox box1 = new MessageBox(shell, 32);
+            box1.setText("保存結果"); // Save results
+            box1.setMessage(result);
+            box1.open();
+        }
+    }
+
+    private void recordTreeWidgetSelected(SelectionEvent evt)
+    {
+        Tree records = (Tree)evt.widget;
+        TreeItem selectedItems[] = records.getSelection();
+        if(selectedItems.length > 0)
+        {
+            String index = (String)selectedItems[0].getData();
+            if(!index.equals("head"))
+            {
+                TreeMap songs = eout.getSongs();
+                if(songs.containsKey(index))
+                {
+                    song = (EoutSong)songs.get(index);
+                    songSet();
+                    selectedItems[0].setText(song.getSongnameString());
+                } else
+                {
+                    MessageBox box1 = new MessageBox(shell, 288);
+                    box1.setText("確認"); // Confirm
+                    box1.setMessage("このレコードは未使用です。\n新規楽曲を追加しますか？"); // This record is not yet usable.  Add the new songs anyway?
+                    int answer = box1.open();
+                    if(answer == 32)
+                    {
+                        try
+                        {
+                            DecimalFormat formatter = new DecimalFormat("0000");
+                            index = formatter.format(songs.size());
+                            song = new EoutSong(version);
+                            song.setSongfolder(selectedItems[0].getText());
+                            songs.put(index, song);
+                            eout.getSongsIndex().put(selectedItems[0].getText(), index);
+                            eout.setSongcount(songs.size());
+                            selectedItems[0].setData(index);
+                            selectedItems[0].setText("追加中！"); // Adding
+                            selectedItems[0].setForeground(SWTResourceManager.getColor(0, 0, 0));
+                            songSet();
+                            isUpdate = true;
+                        }
+                        catch(IOException e)
+                        {
+                            e.printStackTrace();
+                        }
+                    } else
+                    {
+                        songSet1Composite.setVisible(false);
+                        songSet2Composite.setVisible(false);
+                        songSet3Composite.setVisible(false);
+                        movieSetComposite.setVisible(false);
+                        titleSetComposite.setVisible(false);
+                        layerSetComposite.setVisible(false);
+                    }
+                }
+            }
+        }
+    }
+
+    private void songSet()
+    {
+        songSet1Composite.setVisible(true);
+        songNameText.setText(song.getSongnameString());
+        labelImageText.setText(song.getLabelimageString());
+        titleImageText.setText(song.getTitleimageString());
+        markImageText.setText(song.getMarkimageString());
+        genreImageText.setText(song.getGenreimageString());
+        artistImageText.setText(song.getArtistimageString());
+        songSet2Composite.setVisible(true);
+        versionFolderCombo.select(song.getVersionfolderInt());
+        otherFolderButton.setSelection(song.getOtherFolderBoolean());
+        if(version == 728)
+            modeTypeText.setText((new StringBuilder(String.valueOf(song.getModeTypeInt()))).toString());
+        if(version == 680 || version == 796)
+            bemaniFolderButton.setSelection(song.getBemaniFolderBoolean());
+        if(version == 796)
+            battleAllowedButton.setSelection(song.getBattleAllowedBoolean());
+        levelNormal7Text.setText(song.getLevelnormal7String());
+        levelHyper7Text.setText(song.getLevelhyper7String());
+        levelAnother7Text.setText(song.getLevelanother7String());
+        levelNormal14Text.setText(song.getLevelnormal14String());
+        levelHyper14Text.setText(song.getLevelhyper14String());
+        levelAnother14Text.setText(song.getLevelanother14String());
+        levelBeginner7Text.setText(song.getLevelBeginner7String());
+        if(version == 728 || version == 680)
+        {
+            bpmText.setText(song.getBpmString());
+            bpmMaximumText.setText(song.getBpmmaximumString());
+        }
+        if(version == 728)
+            noteAssortText.setText(song.getNoteAssortString());
+        songSet3Composite.setVisible(true);
+        DecimalFormat formatter = new DecimalFormat("0000");
+        songFolderText.setText(formatter.format(Integer.parseInt(song.getSongfolderString())));
+        volumeText.setText(song.getVolumeString());
+        volumeScale.setSelection(Integer.parseInt(song.getVolumeString()));
+        fileNoramal7Text.setText(song.getFilenormal7String());
+        fileHyper7Text.setText(song.getFilehyper7String());
+        fileAnother7Text.setText(song.getFileanother7String());
+        fileNoramal14Text.setText(song.getFilenormal14String());
+        fileHyper14Text.setText(song.getFilehyper14String());
+        fileAnother14Text.setText(song.getFileanother14String());
+        fileBeginner7Text.setText(song.getFileBeginner7String());
+        movieSetComposite.setVisible(true);
+        movieDelayText.setText(song.getMoviedelayString());
+        movieDelayScale.setSelection(Integer.parseInt(song.getMoviedelayString()) + 128);
+        movieFileText.setText(song.getMoviefileString());
+        if(version == 728)
+            movieModeButton.setSelection(song.getMoviemodeBoolean());
+        titleSetComposite.setVisible(true);
+        innerTitleText.setText(song.getInnertitleString());
+        innerImageFolderText.setText(song.getInnerimagefolderString());
+        layerSetComposite.setVisible(true);
+        layerpointButton.setSelection(song.getLayerpointBoolean());
+        layer0Text.setText(song.getLayer0String());
+        layer1Text.setText(song.getLayer1String());
+        layer2Text.setText(song.getLayer2String());
+        layer3Text.setText(song.getLayer3String());
+        layer4Text.setText(song.getLayer4String());
+        layer5Text.setText(song.getLayer5String());
+        layer6Text.setText(song.getLayer6String());
+        layer7Text.setText(song.getLayer7String());
+        layer8Text.setText(song.getLayer8String());
+    }
+
+    private void movieDelayScaleWidgetSelected(SelectionEvent evt)
+    {
+        Scale scale = (Scale)evt.widget;
+        movieDelayText.setText(String.valueOf(scale.getSelection() - 128));
+    }
+
+    private void volumeScaleWidgetSelected(SelectionEvent evt)
+    {
+        Scale scale = (Scale)evt.widget;
+        volumeText.setText(String.valueOf(scale.getSelection()));
+    }
+
+    private void songSet1ButtonWidgetSelected(SelectionEvent evt)
+    {
+        song.setSongname(songNameText.getText());
+        song.setLabelimage(labelImageText.getText());
+        song.setTitleimage(titleImageText.getText());
+        song.setMarkimage(markImageText.getText());
+        song.setGenreimage(genreImageText.getText());
+        song.setArtistimage(artistImageText.getText());
+        isUpdate = true;
+    }
+
+    private void songSet2ButtonWidgetSelected(SelectionEvent evt)
+    {
+        song.setVersionfolder(versionFolderCombo.getSelectionIndex());
+        song.setOtherFolder(otherFolderButton.getSelection());
+        if(version == 728)
+            song.setModeType(modeTypeText.getText());
+        if(version == 680 || version == 796)
+            song.setBemaniFolder(bemaniFolderButton.getSelection());
+        if(version == 796)
+            song.setBattleAllowed(battleAllowedButton.getSelection());
+        song.setLevelnormal7(levelNormal7Text.getText());
+        song.setLevelhyper7(levelHyper7Text.getText());
+        song.setLevelanother7(levelAnother7Text.getText());
+        song.setLevelnormal14(levelNormal14Text.getText());
+        song.setLevelhyper14(levelHyper14Text.getText());
+        song.setLevelanother14(levelAnother14Text.getText());
+        song.setLevelBeginner7(levelBeginner7Text.getText());
+        if(version == 728 || version == 680)
+        {
+            song.setBpm(bpmText.getText());
+            song.setBpmmaximum(bpmMaximumText.getText());
+        }
+        if(version == 728)
+        {
+            if(levelAnother7Text.getText().equals("0") && levelAnother14Text.getText().equals("0"))
+                noteAssortText.setText("1B");
+            else
+            if(levelAnother14Text.getText().equals("0"))
+                noteAssortText.setText("1F");
+            else
+                noteAssortText.setText("3F");
+            song.setNoteAssort(noteAssortText.getText());
+        }
+        isUpdate = true;
+    }
+
+    private void songSet3buttonWidgetSelected(SelectionEvent evt)
+    {
+        song.setSongfolder(songFolderText.getText());
+        song.setVolume(volumeText.getText());
+        song.setFilenormal7(fileNoramal7Text.getText());
+        song.setFilehyper7(fileHyper7Text.getText());
+        song.setFileanother7(fileAnother7Text.getText());
+        song.setFilenormal14(fileNoramal14Text.getText());
+        song.setFilehyper14(fileHyper14Text.getText());
+        song.setFileanother14(fileAnother14Text.getText());
+        song.setFileBeginner7(fileBeginner7Text.getText());
+        isUpdate = true;
+    }
+
+    private void movieSetButtonWidgetSelected(SelectionEvent evt)
+    {
+        song.setMoviedelay(movieDelayText.getText());
+        song.setMoviefile(movieFileText.getText());
+        if(version == 728)
+            song.setMoviemode(movieModeButton.getSelection());
+        isUpdate = true;
+    }
+
+    private void titleSetButtonWidgetSelected(SelectionEvent evt)
+    {
+        song.setInnertitle(innerTitleText.getText());
+        song.setInnerimagefolder(innerImageFolderText.getText());
+        isUpdate = true;
+    }
+
+    private void layerSetButtonWidgetSelected(SelectionEvent evt)
+    {
+        song.setLayerpoint(layerpointButton.getSelection());
+        song.setLayer0(layer0Text.getText());
+        song.setLayer1(layer1Text.getText());
+        song.setLayer2(layer2Text.getText());
+        song.setLayer3(layer3Text.getText());
+        song.setLayer4(layer4Text.getText());
+        song.setLayer5(layer5Text.getText());
+        song.setLayer6(layer6Text.getText());
+        song.setLayer7(layer7Text.getText());
+        song.setLayer8(layer8Text.getText());
+        isUpdate = true;
+    }
+
+    private void modeMenuItemWidgetSelected(SelectionEvent evt)
+    {
+        Widget menu = evt.widget;
+        String modeData = (String)menu.getData();
+        if(modeData.equals(""))
+            writeMode = 12;
+        else
+        if(modeData.equals("_dd"))
+            writeMode = 13;
+        else
+        if(modeData.equals("_gd"))
+            writeMode = 14;
+    }
+
+    private void expandMenuItemWidgetSelected(SelectionEvent evt)
+    {
+        int indexCount = eout.getSongsIndex().size();
+        int endCount = indexCount + 100;
+        TreeItem songItem = null;
+        DecimalFormat formatter = new DecimalFormat("0000");
+        for(int i = indexCount; i < endCount; i++)
+        {
+            songItem = new TreeItem(recordHead, 0);
+            songItem.setText(formatter.format(i));
+            songItem.setData("");
+        }
+
+    }
+
+    private static Shell shell;
+    private Button layerSetButton;
+    private Button layerpointButton;
+    private Button movieSetButton;
+    private Button otherFolderButton;
+    private Button songSet1Button;
+    private Button songSet2Button;
+    private Button songSet3button;
+    private Button titleSetButton;
+    private CTabFolder songTabFolder;
+    private CTabItem layerSetCTabItem;
+    private CTabItem movieSetCTabItem;
+    private CTabItem songSet1CTabItem;
+    private CTabItem songSet2CTabItem;
+    private CTabItem songSet3CTabItem;
+    private CTabItem titleSetCTabItem;
+    private Combo versionFolderCombo;
+    private Composite layerSetComposite;
+    private Composite movieSetComposite;
+    private Composite songSet1Composite;
+    private Composite songSet2Composite;
+    private Composite songSet3Composite;
+    private Composite titleSetComposite;
+    private Group layerGgroup;
+    private Label label11;
+    private Label label12;
+    private Label label13;
+    private Label label14;
+    private Label label15;
+    private Label label16;
+    private Label label17;
+    private Label label18;
+    private Label label19;
+    private Label label1;
+    private Label label20;
+    private Label label21;
+    private Label label23;
+    private Label label24;
+    private Label label25;
+    private Label label28;
+    private Label label2;
+    private Label label30;
+    private Label label32;
+    private Label label33;
+    private Label label39;
+    private Label label3;
+    private Label label40;
+    private Label label41;
+    private Label label42;
+    private Label label43;
+    private Label label44;
+    private Label label46;
+    private Label label47;
+    private Label label4;
+    private Label label6;
+    private Label label7;
+    private Label label8;
+    private Label label9;
+    private Menu fileMenu;
+    private Menu helpMenu;
+    private Menu menu1;
+    private MenuItem aboutMenuItem;
+    private MenuItem exitMenuItem;
+    private MenuItem fileMenuItem;
+    private MenuItem helpMenuItem;
+    private MenuItem openFileMenuItem;
+    private MenuItem saveFileMenuItem;
+    private SashForm sashForm;
+    private Scale movieDelayScale;
+    private Scale volumeScale;
+    private ScrolledComposite layerSetScrolledComposite;
+    private ScrolledComposite movieSetScrolledComposite;
+    private MenuItem expandMenuItem;
+    private Menu menu2;
+    private MenuItem menuItem3;
+    private Text text1;
+    private MenuItem open2MenuItem;
+    private MenuItem menuItem2;
+    private MenuItem menuItem1;
+    private MenuItem saveAsMenuItem;
+    private Button battleAllowedButton;
+    private Button bemaniFolderButton;
+    private Button movieModeButton;
+    private ScrolledComposite songSet1ScrolledComposite;
+    private ScrolledComposite songSet2ScrolledComposite;
+    private ScrolledComposite songSet3ScrolledComposite;
+    private ScrolledComposite titleSetScrolledComposite;
+    private Text artistImageText;
+    private Text bpmMaximumText;
+    private Text bpmText;
+    private Text fileAnother14Text;
+    private Text fileAnother7Text;
+    private Text fileBeginner7Text;
+    private Text fileHyper14Text;
+    private Text fileHyper7Text;
+    private Text fileNoramal14Text;
+    private Text fileNoramal7Text;
+    private Text genreImageText;
+    private Text innerImageFolderText;
+    private Text innerTitleText;
+    private Text labelImageText;
+    private Text layer0Text;
+    private Text layer1Text;
+    private Text layer2Text;
+    private Text layer3Text;
+    private Text layer4Text;
+    private Text layer5Text;
+    private Text layer6Text;
+    private Text layer7Text;
+    private Text layer8Text;
+    private Text levelAnother14Text;
+    private Text levelAnother7Text;
+    private Text levelBeginner7Text;
+    private Text levelHyper14Text;
+    private Text levelHyper7Text;
+    private Text levelNormal14Text;
+    private Text levelNormal7Text;
+    private Text markImageText;
+    private Text movieDelayText;
+    private Text movieFileText;
+    private Text modeTypeText;
+    private Text songFolderText;
+    private Text songNameText;
+    private Text titleImageText;
+    private Text noteAssortText;
+    private Text volumeText;
+    private Tree recordTree;
+    private TreeItem recordHead;
+    private MenuItem settingMenuItem;
+    private Menu settingMenu;
+    private MenuItem hsMenuItem;
+    private MenuItem ddMenuItem1;
+    private MenuItem gdMenuItem1;
+    private boolean isUpdate;
+    private int version;
+    private Eout eout;
+    private EoutSong song;
+    private int writeMode;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

@@ -1,0 +1,15 @@
+I have decided to take a break from the world of IIDX AC reverse-engineering, mostly since I've figured out every scrambling algorithm that Konami has thrown at us so far. Here you can download the various information that I and others have gathered about IIDX AC so far. Hope you like C...
+
+Source Code
+crack2dx.c          Descramble .2DX (sound archive) files
+crackeout.c         Descramble/rescramble DATA\INFO\EOUT.BIN (song index file)
+crackgcz.c          Descramble IIDX DistorteD GCZ files (only DD has scrambled GCZs)
+gcz2tga.c           Unpack a GCZ (texture) directory into separate TGA files [UPDATED]
+packgcz.c           Assembles GCZ and IDX files from TGA files
+pack2dx.c           Import BME charts into IIDX. UNFINISHED, DOES NOT WORK YET.
+split2dx.c          Splits a non-scrambled .2DX file into WAV files
+unz.c               Decompress .INZ and .XZ files into .INIs and .Xs respectively
+
+Contributions and patches are welcome, but don't expect me to work on this stuff again anytime soon.
+
+Have fun.

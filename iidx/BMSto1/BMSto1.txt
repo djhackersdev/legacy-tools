@@ -1,0 +1,40 @@
+ ============================
+ BMSto1 v0.06
+ Created 2007.04.04 and (Y)
+ Updated 2007.04.07 by ('-')
+                      (")_(")
+ ----------------------------
+
+ BMSto1 is a Be-Music Source conversion utility. It opens a BMS file, then
+ saves the converted data to .1 format. Sound data is converted and saved
+ to un-encrypted .2dx format.
+
+ Written in Delphi 7. Source is included.
+
+ Although BMSto1 is a console application, File Drag and Drop is supported.
+ Output files will be saved in the input file's folder.
+
+
+ To use:  BMSto1 [/RANDOM] [/MIRROR] [/VMIRROR] InputFile1 InputFile2 ...
+
+    InputFile  - The BMS file(s) to convert. Wildcards ? and * can be used in
+                 any InputFile name parameter. All Output file(s) will have .1
+                 as their new file extension.
+      /RANDOM  - Applies the Random Modifier effect to the note-chart.
+      /MIRROR  - Applies the Mirror Modifier effect to the note-chart.
+     /VMIRROR  - Vertically flips the note-chart. Last note becomes first!
+
+ This version of BMSto1 currently isn't able to combine multiple BMS files of
+ the same song. Instead, each BMS will be converted to its own .1 file. 
+
+
+ -------------------------------------------------------------------------------
+
+ ===============
+ Version History
+ ---------------
+ v0.06 released 2007.04.07 - Added in .2dx file creation.
+                             Removed the useless /RAW option.
+ v0.05 released 2007.04.06 - Fixed the "Song-Stop appears in wrong location" bug.
+ v0.04 released 2007.04.06 - Fixed the "No song-stop event" bug.
+ v0.01 released 2007.04.04 - First release!

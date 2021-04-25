@@ -1,0 +1,45 @@
+looks like i forget to post this here lol
+also dunno if anyone post something like this yet
+this thing can "render" gst file for iidx songs
+
+DL: https://www.dropbox.com/s/l0nepgb50x0zz51/2dx_gst_ver0.5.zip?dl=0
+oof, i posted the old version(0.2), fixed
+
+usage:
+1. place the exe into the same place of .1 and .2dx/.s3p file
+2. run this line in cmd
+
+    2dx_gst [music_id]
+
+
+3. you should see the output wave file in the same folder
+
+QA:
+1. What's that "render" mean?
+Because I just simply add all the samples to the final track without processing them like this:
+
+    static int32_t mixing_function(int32_t buf, int16_t input)
+    {
+    return buf + input;
+    }
+
+
+Maybe there's a better way to do the sample mixing, but this way is simple and also working so I just leave it like this.
+If anyone has better solution rather than just adding all tracks into the final one, please feel free to leave a comment here.
+
+2. What's the "mixing level" mean?
+Since I use int32 rather than int16 for temp buffer(so it won't rape your ear if too much sample is added in the same time period), this will show how much the scale is when converting it back to int16 in the final step. It's kinda like normalizing the final track by the max volume of original track.
+
+3. Why sometimes there will be more than one wave file?
+The chart files are different sometimes(like 1ms differ for only one sample sound, or totally completly different music), so the final track will also be different. I use hash for each output track to check this, so even if it's only some 1ms differs the program will still just treat them as different tracks. You can just ignore/delete other outputs if it sounds the same.
+
+4. How to generate files for multi tracks like crew?
+
+    2dx_gst 24084 --snd-string 51253400
+
+
+The suffix string is in music_data.bin if needed.
+
+There're still some things to fix such as temp file for s3p decoding and the same output checking, but i think it should be ready to post a build here.
+
+Feel free to report any issue, I havn't tested it for all songs so there may be some bugs I can't find by now. 
