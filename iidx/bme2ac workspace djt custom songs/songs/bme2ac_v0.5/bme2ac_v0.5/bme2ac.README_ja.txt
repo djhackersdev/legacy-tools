@@ -1,0 +1,49 @@
+bme2ac by ryuuou
+	BME/BMS式とwavファイルを.1と.2dxファイルに変化するソフト
+	DJT以上のみに対応
+
+バージョンによる変化:
+ v0.5
+	- ロングノート対応（ちょっと不完全）
+	- バグ修正？
+ v0.4
+	- 速度大アップw
+	- #STOP対応になった（#STPではない）
+	- 整数ではないBPMの問題を修正
+	- 「#」が含んでいるwavのファイル名のバグを修正
+	- 最後の拍子棒（？）がないバグを修正
+	- 「decrypted.2dx」をなくして、「encrypted.2dx」を「output.2dx」に変名
+	- 曲が最後の拍子の3秒後に終わるようになった
+	- ソースコードを含めてツールを追加:
+	  create2dx_dumb, crack2dx_new, timebase_single, encrypt2dx, merge1, parse1, checkeout
+ v0.3
+	- 黙らせた、サーセンw
+	- 基本的なイベントはBPM修正の後に書き込む、「曲が終わった」イベントはもうズレない
+	- キー音変化イベントと当キーの間を可変に（いつもふたつのキーの最中になる）、連打のキー音ズルはこれでなくなる
+ v0.2
+	- 英語と日本語のREADMEを追加
+	- BPM変化は可能になった
+	- 拍子変化は可能になった（タブンw)、音ズレはもうないはず
+ v0.1
+	- 初公開
+
+=============
+
+使い方:
+
+準備として
+http://prdownloads.sourceforge.net/sox/sox-14.1.0.zip?download
+SoXをダウンロードして、sox.exeをwindowsフォルダーに入れておく。
+bme2ac.exeとconvertwav.batをBMSがあるフォルダーに入れる。
+
+convertwavを起動。楽しい楽しいファイル変化（元ファイルは「old」フォルダに移動）をちゃんと見守ってから、
+BMEまたはBMSファイル名を「b.bme, n7.bme, h7.bme, a7.bme, n14.bme, h14.bme, a14.bme」に変えましょう。
+bme2acを起動。出てくるoutput.1とencrypted.2dxはAC対応となります。
+
+=============
+
+注意点
+DJTの曲を上書きした場合、新しく入れた曲と上書きした曲の楽譜の数が一致しないとだめ、
+　　a14がある曲をそれがない曲で上書くとか。n7.bmeをa14.bmeとかにコピーすればOK。
+キーサウンドがない曲はだめ（たぶん）。
+「Failed to load waves: ...」はちょっとやばい。欠けているファイルの代わりに短い音のないwavを使いましょう。convertwavをかけるのも忘れずに。

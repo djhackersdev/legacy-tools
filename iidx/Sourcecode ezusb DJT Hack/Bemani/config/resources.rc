@@ -1,0 +1,332 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Japanese resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
+#ifdef _WIN32
+LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
+#pragma code_page(932)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_COMMON, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 293
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 215
+    END
+
+    IDD_EAMUSE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 293
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 215
+    END
+
+    IDD_IIDX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 293
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 215
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_COMMON DIALOGEX 0, 0, 300, 222
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Common"
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Device",IDC_STATIC,6,6,22,8
+    COMBOBOX        IDC_DEVICE,6,18,144,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Control",IDC_STATIC,6,36,24,8
+    LISTBOX         IDC_ACTION,156,18,138,186,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Action",IDC_STATIC,156,6,21,8
+    LISTBOX         IDC_CONTROL,6,48,144,156,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "",IDC_PRESSED,6,210,288,8
+END
+
+IDD_EAMUSE DIALOGEX 0, 0, 300, 222
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "eAmusement"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Machine ID Path",IDC_STATIC,6,6,53,8
+    EDITTEXT        IDC_MACHINE_ID,6,18,234,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse...",IDC_BROWSE_MACHINE_ID,246,18,48,14
+    LTEXT           "1P Card Path",IDC_STATIC,6,36,43,8
+    EDITTEXT        IDC_CARD0,6,48,234,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse...",IDC_BROWSE_CARD0,246,48,48,14
+    LTEXT           "2P Card Path",IDC_STATIC,6,66,43,8
+    EDITTEXT        IDC_CARD1,6,78,234,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse...",IDC_BROWSE_CARD1,246,78,48,14
+END
+
+IDD_IIDX DIALOGEX 0, 0, 300, 222
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "IIDX"
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Mouse X Axis",IDC_STATIC,6,6,43,8
+    LTEXT           "Mouse Y Axis",IDC_STATIC,156,6,43,8
+    COMBOBOX        IDC_IIDX_X_AXIS,6,18,144,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_IIDX_Y_AXIS,156,18,138,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Mouse Sensitivity",IDC_STATIC,6,36,56,8
+    CONTROL         "",IDC_MOUSE_SENS,"msctls_trackbar32",TBS_AUTOTICKS | WS_TABSTOP,6,48,288,18
+    CONTROL         "Add turntable lag. Enable this if scratches feel late in-game.",IDC_TT_LAG,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,78,207,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_IIDX DLGINIT
+BEGIN
+    IDC_IIDX_X_AXIS, 0x403, 8, 0
+0x6e55, 0x6f62, 0x6e75, 0x0064, 
+    IDC_IIDX_X_AXIS, 0x403, 13, 0
+0x3150, 0x5420, 0x7275, 0x746e, 0x6261, 0x656c, "\000" 
+    IDC_IIDX_X_AXIS, 0x403, 13, 0
+0x3250, 0x5420, 0x7275, 0x746e, 0x6261, 0x656c, "\000" 
+    IDC_IIDX_Y_AXIS, 0x403, 8, 0
+0x6e55, 0x6f62, 0x6e75, 0x0064, 
+    IDC_IIDX_Y_AXIS, 0x403, 13, 0
+0x3150, 0x5420, 0x7275, 0x746e, 0x6261, 0x656c, "\000" 
+    IDC_IIDX_Y_AXIS, 0x403, 13, 0
+0x3250, 0x5420, 0x7275, 0x746e, 0x6261, 0x656c, "\000" 
+    0
+END
+
+#endif    // Japanese resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_COMMON, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 293
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 215
+    END
+
+    IDD_IIDX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 293
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 215
+    END
+
+    IDD_EAMUSE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 293
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 215
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_COMMON DIALOGEX 0, 0, 300, 222
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Common"
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Device",IDC_STATIC,6,6,22,8
+    COMBOBOX        IDC_DEVICE,6,18,144,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Control",IDC_STATIC,6,36,24,8
+    LISTBOX         IDC_ACTION,156,18,138,186,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Action",IDC_STATIC,156,6,21,8
+    LISTBOX         IDC_CONTROL,6,48,144,156,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "",IDC_PRESSED,6,210,288,8
+END
+
+IDD_IIDX DIALOGEX 0, 0, 300, 222
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "IIDX"
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Mouse X Axis",IDC_STATIC,6,6,43,8
+    LTEXT           "Mouse Y Axis",IDC_STATIC,156,6,43,8
+    COMBOBOX        IDC_IIDX_X_AXIS,6,18,144,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_IIDX_Y_AXIS,156,18,138,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Mouse Sensitivity",IDC_STATIC,6,36,56,8
+    CONTROL         "",IDC_MOUSE_SENS,"msctls_trackbar32",TBS_AUTOTICKS | WS_TABSTOP,6,48,288,18
+    CONTROL         "Add turntable lag. Enable this if scratches feel late in-game.",IDC_TT_LAG,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,78,207,10
+END
+
+IDD_EAMUSE DIALOGEX 0, 0, 300, 222
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "eAmusement"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Machine ID Path",IDC_STATIC,6,6,53,8
+    EDITTEXT        IDC_MACHINE_ID,6,18,234,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse...",IDC_BROWSE_MACHINE_ID,246,18,48,14
+    LTEXT           "1P Card Path",IDC_STATIC,6,36,43,8
+    EDITTEXT        IDC_CARD0,6,48,234,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse...",IDC_BROWSE_CARD0,246,48,48,14
+    LTEXT           "2P Card Path",IDC_STATIC,6,66,43,8
+    EDITTEXT        IDC_CARD1,6,78,234,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse...",IDC_BROWSE_CARD1,246,78,48,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_IIDX DLGINIT
+BEGIN
+    IDC_IIDX_X_AXIS, 0x403, 8, 0
+0x6e55, 0x6f62, 0x6e75, 0x0064, 
+    IDC_IIDX_X_AXIS, 0x403, 13, 0
+0x3150, 0x5420, 0x7275, 0x746e, 0x6261, 0x656c, "\000" 
+    IDC_IIDX_X_AXIS, 0x403, 13, 0
+0x3250, 0x5420, 0x7275, 0x746e, 0x6261, 0x656c, "\000" 
+    IDC_IIDX_Y_AXIS, 0x403, 8, 0
+0x6e55, 0x6f62, 0x6e75, 0x0064, 
+    IDC_IIDX_Y_AXIS, 0x403, 13, 0
+0x3150, 0x5420, 0x7275, 0x746e, 0x6261, 0x656c, "\000" 
+    IDC_IIDX_Y_AXIS, 0x403, 13, 0
+0x3250, 0x5420, 0x7275, 0x746e, 0x6261, 0x656c, "\000" 
+    0
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.K.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_TITLE               "BemaniPC Config"
+    IDS_CTL_NAME            "Name"
+    IDS_CTL_BINDING         "Binding"
+    IDS_PRESSED             "Currently pressed:"
+    IDS_OPEN                "Open"
+    IDS_OPEN_FILTER         "Text Files"
+    IDS_MACHINE_ID_NOT_FOUND 
+                            "Could not read Machine ID file. You must have a valid machine ID to use an eAmusement emulation service"
+    IDS_IIDX_NONE           "None"
+    IDS_IIDX_1P_TT          "1P Turntable"
+    IDS_IIDX_2P_TT          "2P Turntable"
+	IDS_ERROR               "Error"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_UNKNOWN_GAME        "Unknown game type. Please launch this program using config.bat."
+END
+
+#endif    // English (U.K.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

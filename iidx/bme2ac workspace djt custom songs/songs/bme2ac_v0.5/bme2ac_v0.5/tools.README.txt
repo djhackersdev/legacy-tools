@@ -1,0 +1,58 @@
+ALL TOOLS ARE OMAKE _ONLY, DO NOT COME RUNNING WITH PROBLEMS, BUGS, REQUESTS OR QUESTIONS HOW TO USE THEM.
+Also they might be of absolutely no use to you.
+
+
+crack2dx_new:
+	cracks and decomposes a .2dx file with variable filenames; supports 9th style to Empress
+	"crack2dx_new <2dx file> <output format>"
+	output format (0~4):
+		0: 1.wav, 2.wav...
+		1: 0001.wav, 0002.wav...
+		2 (default): 01.wav, 02.wav..., ZZ.wav
+		3: 01.wav, 02.wav..., FF.wav
+
+encrypt2dx:
+	encrypts unencrypted .2dx files (or any other file, no idea why you'd want to do that though)
+	"encrypt2dx <file>"
+	choose the encryption you want, the output will always be "encrypted.2dx"
+
+parse1:
+	parses a .1 file and prints various information, mainly for debugging
+	"parse1 <file> <verbosity>"
+	verbosity:
+		v (default): print standard info and summary only
+		vv: same as v, also print bpm info and measure related events
+		vvv: print everything except for keysound preload and autoplay events
+		vvvv: print pretty much everything
+
+create2dx_dumb:
+	creates an (troopers-)encrypted and unencrypted .2dx file from a .bme/.bms file or from BME-style named wav files in the same folder
+	"create2dx_dumb <bme/bmsfile>"
+	the file parameter is optional; if given it searches the .bme/.bms for wav references and create the .2dx files from wavs in the same folder
+	if no parameter is given, it simply searches the current directory for BME-style named wav files and uses those in order instead, hence _dumb
+
+timebase_single:
+	does the same as timebase, but can be used on a batch of files instead.
+	THIS OVERWRITES THE ORIGINAL FILES, MAKE BACKUPS BEFOREHAND, YOU HAVE BEEN WARNED! THIS ALSO KILLS EVERYTHING EXCEPT .1 FILES, THERE ARE NO SAFETIES!
+	"timebase_single <file1> <file2> ..."
+	you will need to specify the base fps currently used inside the .1 file (or 0 or 1 for the respective defaults)
+	use your refresh rate for the target fps
+	this also allows converting from troopers to gold and below:
+		insert 1000 for the troopers fps and the default gold/dd-and-below fps
+
+merge1:
+	merges several .1 files into one; this can help when you have too large .2dx files because or different sounding charts
+	"merge1"
+	the .1 files have to be named according to the difficulty you want to extract from them:
+	b.1, n7.1...a14.1, so the final .1 file will have the n7 chart from n7.1, the h14 chart from h14.1 etc.
+	if you also provide a base.1, then all charts from that file will be taken and selectively overwritten by the other files you provide
+		(usefull if you only want to overwrite one chart out of 6 or so)
+
+checkeout:
+	checks your iidx environment for sanity to help search for errors
+	does not currently support graphics stuff like banners, but pretty much everything else that usually goes wrong
+	first of all PLACE checkeout.exe IN YOUR "data" FOLDER! RUN IT FROM THE COMMAND PROMPT (cmd.exe), NOT BY DOUBLECLICK!
+	"checkeout <DECODED eout.bin> <verbosity>"
+	by default both warnings and errors are displayed, verbosity = "v" means errors only, "vv" means warnings only
+	warnings ("__") can be ignored for the most part (missing videos etc.)
+	errors ("!!") will most likely prevent iidx from booting or make the respective song crash.

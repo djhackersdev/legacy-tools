@@ -1,0 +1,51 @@
+bme2ac by ryuuou
+	Converts BME/BMS style files and WAVs into .1 and .2dx files
+	Suitable for use with beatmania IIDX TROOPERS AC _only_!
+
+Changelog:
+ v0.5
+	- partial support for freezenotes
+	- random bugfixes?
+ v0.4
+	- speedups
+	- implemented #STOP events (_NOT_ #STP events!)
+	- fixed a potential problem with fractional bpm
+	- fixed a bug with file names that have '#' in them
+	- the measure line of the last measure wasn't written out correctly
+	- nixed decrypted.2dx; encrypted.2dx -> output.2dx
+	- songs now end 3 seconds after the end of the last measure
+	- added several tools including their sourcecode:
+	  create2dx_dumb, crack2dx_new, timebase_single, encrypt2dx, merge1, parse1
+ v0.3
+	- killed debug output
+	- standard events are now written after bpm corrections to avoid screwing with the end-song event
+	- keysound preload events are now dynamic and always placed between keys; this should fix wrong keysounds on fast repeats once and for all
+ v0.2
+	- added English and Japanese readme files
+	- implemented bpm changes
+	- implemented changing measure sizes, this should fix a lot of offsync songs
+ v0.1
+	- initial release
+
+
+=============
+
+HOWTO:
+Download SoX here:
+http://prdownloads.sourceforge.net/sox/sox-14.1.0.zip?download
+Extract sox.exe into your windows folder.
+Put both convertwav.bat and bme2ac.exe into the same folder as the BMS files you want to convert.
+
+Run convertwav.bat. It will convert all wavs in the same folder to a format Troopers can understand. You can find the original files in the newly created folder "old".
+Now rename all your BMS/BME files like this:
+b.bme n7.bme h7.bme a7.bme n14.bme h14.bme a14.bme
+Now run bme2ac. It will produce 3 files: output.1, encrypted.2dx and decrypted.2dx. The former two files are now usable with Troopers.
+
+=============
+
+IMPORTANT NOTES:
+Should bme2ac tell you that it can't find some wav files, fill those in with short silent wav files, _NOT_ 0 byte files or other garbage. Don't forget to run convertwav.bat again.
+Charts without keysounds probably won't work.
+Should you choose to replace an original IIDX song with a custom one, make sure that your new song has at least
+  the same number of charts as the old one or Troopers will refuse to boot.
+  You can for example copy over n7.bme to a14.bme if needed.

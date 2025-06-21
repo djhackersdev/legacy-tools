@@ -1,0 +1,8 @@
+LIBRARY	"iphlpapi"
+
+EXPORTS
+	GetAdaptersInfo=get_adapters_info
+	GetIfTable=get_if_table
+	GetNetworkParams=get_network_params
+	AddIPAddress=add_ip_address
+	DeleteIPAddress=delete_ip_address

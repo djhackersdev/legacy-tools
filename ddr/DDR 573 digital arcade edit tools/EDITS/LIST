@@ -1,0 +1,25 @@
+Ok, this has always been a question, now here is the answer. Once and for all.
+
+I do not have many pictures right now, but this guide will tell you how to build a stepmania machine.
+
+Things you will need:
+A computer with an AGP Slot
+J-Pac (www.ultimarc.com) (PS2 is better then USB)
+ArcadeVGA (www.ultimarc.com)
+Screw Driver
+Wire
+
+Things I Recomend:
+Sound Blaster Live 5.1
+
+Ok, heres the deal. Take the DDR PCB out of the ddr machine. With the ArcadeVGA installed on the PC run the VGA cord fromt he PC to the JPac. Then run the JPac to the computer's PS2 keyboard slot. Plug the jamma harnest into the JPac.
+
+Take the screw driver and take the 2 metal panels that cover the pad controll boards off of the pad. These panels will be the one to the right of 1P Up and to the left of 2P Up. Now that you are looking at the two controll boards, you will see 4 pad connectors, 1 power connector and 1 main connector running to each board. Use a small length of wire to bridge Wire 1 of the main connector (black) to Wire 3 of the main connector (white). This will allow the JPac to controll the entire pad now, not just 4 of the 8 arrows. You can now re-assemble the pad.
+
+Now, using the screw terminals on the jpac run a wire from a ground and a button screw to the service button, because the service button will not work with the JPac regularly.
+
+Install the JPac software and turn of "Shift Keys". If you do not the 1P start button will not work right.
+
+Now for Stepmania. You need to use Stepmania CN Arcade Build 5 to make this function right. With the JPac it often picks up single depressions as double taps due to the way the sensors are set up. AB5 offers a Debounce function that will stop that. Setting Debounce = 0.060000 stopped that issue for me without hindering performance. I have seen sever AAs of Max. with it, so I know it is not too big.
+
+For the lights, you will need to contact Charles Lohr about purchasing a lights controller. I hve used his units and they work perfectly. Go to www.CNLohr.net for contact information.

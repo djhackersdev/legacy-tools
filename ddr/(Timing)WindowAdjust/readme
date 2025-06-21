@@ -1,0 +1,37 @@
+A small utility I put together to adjust the timing window frame placement in DDR games.
+
+It requires .NET 4.0 to run. I've been using it on both Windows 7 x64 and Windows XP x86. I haven't done a ton of testing but it works.
+
+
+Why:
+
+I found myself having to adjust the window for various reasons (adjustments for input method, type of monitor, etc) and figured a nice quick and dirty app would be nice.
+
+
+How it works:
+
+Drag a game data file into the application window. If it is a valid game data file for a supported mix, it will detect the mix and the current window offset.
+
+Then you can simply adjust the slider and hit save. Moving it to the left, earlier, makes the window sooner (so you'd essentially be stepping late before use) Moving the slider to the right, later, makes the window later (so you'd have been stepping early before use).
+
+
+Supported mixes:
+DDR 5th
+DDRMAX
+DDRMAX2
+DDR EXTREME
+DS EuroMIX2
+DDR X (us)
+DDR X2 (jp)
+DDR X3 vs. 2ND MIX
+
+
+NOTES:
+This does NOT adjust the audio video sync. This only adjust at what time intervals the game assigns different step values. In principle, this caters towards visual players instead of those who focus solely on the audio.
+
+This does NOT change, nor support the ability to change, the size of the timing window. It only shifts it back and forth.
+
+When using it with 573 data (game.dat), I cannot guarantee proper behavior if you shift the window more than a few frames. IIRC the games start acting weird if you shift them a lot (for example, to the point where the entire marv window is now later than "on time; aka 0 frame offset) would have been).
+
+This can be ran from the command line as well to help facilitate possible scripting.
+DDRWindowAdjust.exe [-B] GAMEFILE NEW_OFFSET

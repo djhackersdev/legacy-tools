@@ -1,0 +1,183 @@
+    1.0 VERSION UPDATE!
+        Do not expect any support from PK for this.
+            Version changes:
+            Support?
+            Download link!
+
+Yuvijin wrote:
+
+    Not sure whats going on here,
+
+    But whenever I load gamestart-16 with ddrio-python renamed to ddrio.dll it gives me a "Entry point not found" error, and the game refuses to load.
+    Game loads and works perfectly fine when using the default ddrio.dll.
+
+    Running windows 7 x64 with both usb plugged directly into the machine. Any Ideas?
+
+
+
+
+
+1.0 VERSION UPDATE!
+
+Do not expect any support from PK for this.
+
+
+Version changes:
+
+- Fix calls for updated btools
+- literally nothing else
+- all information in the first post still applies
+
+Support?
+
+- Major bugs will get fixed if needed
+- that's about it
+- I can try to help out as much as possible
+
+Download link!
+
+- (site link) http://www.iidxfan.xyz/archive/ddrio-python
+- (direct file link) http://www.iidxfan.xyz/archive/ddrio-python/ddrio-python_1.0.zip
+
+
+--------------------------------------------------------------------------------
+
+
+        What is this
+        So why would you want this?
+        Important Notes
+        Configuration Features
+        Installation Instructions for AC Data
+        Download
+        Changelog
+
+Hi all,
+I am going through a really hard time and need to sell some stuff to fund a litany of things -- including a legal defense. I have several boards I will be selling in the near future that can run everything you read here. I just want to complete development so buyers have everything they need. In the mean time, I am posting this here for public testing.
+
+What is this
+
+I've recently made some interfaces into Stepmania 5 and into official ac data for p2io and p3io boards through libusb. Stepmania 5 will get its own thread when it is fully finished.
+
+So why would you want this?
+
+You can use an official p2io or p3io with Stepmania 5 after installing a libusb interface. So not only can you run this in Windows in tandem with official data, you can use it on Linux as well. The big advantage here is polling control and not having to rewire anything.
+
+The use case for official ac data is a little ambiguous though. In addition to using a p2io with ac data, this allows you to use either board on a system newer than Windows XP in 32 or 64 bits. When an official motherboard eventually dies, you'll now have a way to actually use these boards on modern hardware and operating systems. You can also use this to boot HD mode on your official kit without an HDXB device.
+
+Important Notes
+
+There are 2 variants of libusb0. There's the vanilla one and libusb-k. Libusb-k is objectively better for Windows (if you can use it) because it uses the winusb backend. HOWEVER I have uncovered a bug with at least the p2io and winusb on Windows 10. Some devices with Windows 10 won't even enumerate the device at all no matter the driver used. For example, the Dell Venue Pro tablet will not enumerate at all with it. This has to do with the USB chipset drivers and the windows 10 USB subsystem.
+
+Unfortunately, the answer here is, change the USB drivers, get another motherboard or USB expansion card, or don't use Windows 10. If the device DOES enumerate, you can use vanilla libusb0 on Windows 10 without issue.
+
+I've had no issues, even with the Dell Venue Pro tablet using Windows 7 with either driver or Linux.
+
+Configuration Features
+
+BOTH solutions can be configured with several options to override.
+It can utilize the extio either through a com port (by default COM1) or the virtual interface (VCOM1) on the p2io.
+
+It can utilize either a COM4 through the virtual interface (VCOM4) or directly accessing the com port of your choosing (be default COM4).
+
+On the AC data front only:
+I also handle mapping HD lights to SD cabinets however the start buttons do not work in this mode because the HDXB device is what controls them.
+
+You can create a sample config file, its SUPER rudimentary parsing, it must look like this, in this order.
+
+On a dragon the defaults are:
+
+
+    HDXB_PORT=VCOM4
+    HDXB_DEVICE=3
+    EXTIO_PORT=COM1
+    MAP_P3IO_HD_TO_SD=0
+
+
+
+On a chimera the defaults are:
+
+
+    HDXB_PORT=COM4
+    HDXB_DEVICE=3
+    EXTIO_PORT=COM1
+    MAP_P3IO_HD_TO_SD=0
+
+
+
+On a python 2 IO the defaults are:
+
+
+    HDXB_PORT=VCOM2
+    HDXB_DEVICE=3
+    EXTIO_PORT=VCOM1
+    MAP_P3IO_HD_TO_SD=0
+
+
+
+HDXB stuff is NOT supported in bemanitools and as such functionality is stubbed out. The HDXB settings do not matter and do nothing but are a placeholder for later.
+
+Note the setting map hd to sd, when set to 1, will map hd spotlights to sd marquee lamps. If you set this option and it operates in SD mode with this setting set, it will do nothing and switch over only when it detects HD mode. On a p2io the mode is always assumed to be an SD cabinet and this setting will do nothing.
+
+Note the EXTIO setting. There is a virtual com port, similar to VCOM4, on the p2io. You can use it by setting the virtual comport name there or use a regular com port by prefixing it without the V. Keep in mind windows likes all caps in a comport name.
+
+Installation Instructions for AC Data
+
+(Shamelessly stolen from Naryu)
+1. Use Zadig to install WinUSB drivers for the new device. If you have konami drivers it will show up as DDRX special or something. If you don't it may show up as unknown device. This varies based on OS.
+
+    Open up the program and allow Administrative access
+    Options -> List all Devices
+    Click the proper device from the list
+    Select libusb or libusb-k
+    Click the “Replace Driver” button
+    Check this link for more documentation: https://github.com/pbatard/libwdi/wiki/Zadig
+    If you have trouble installing it, later versions of Windows require you run the system in “Test Mode”. See this link for togging test mode. https://www.linkedin.com/pulse/enable-test-mode-windows-10-ajibola-okubanjo
+
+
+2. Copy both “ddrio-python.dll” and “libusb0.dll” into your game directory
+3. Backup the original “ddrio.dll” to a safe location
+4. Rename “ddrio-python.dll” to “ddrio.dll”
+5. OPTIONAL: Create a configuration file with overrides defined in the same folder as "ddrio.dll"
+6. Start the game in SD or HD mode.
+
+Download
+
+(The MSVC2013 run-time is statically linked so it can run on konami xp if you want it to)
+
+v0.4 - Current Stable
+v0.3
+v0.2
+v0.1
+
+Changelog
+
+V0.4 wrote:
+
+
+    Fix typo in test/coin bitmask
+
+
+V0.3 wrote:
+
+
+    Add hd neon test case
+    Unswizzel IO commands
+
+
+V0.2 wrote:
+
+
+    Fix P2IO watchdog and always getting hd lights
+
+
+V0.1 wrote:
+
+
+    Initial Release
+
+
+
+
+----------------------------------------------------------------------------
+
+

@@ -1,0 +1,42 @@
+There are 4 red LEDs plus a blue LED.  The blue LED is under control of
+the PC software and is generally meaningless from a board operation
+point-of-view.  The provided stepmania and openitg drivers cause it to
+mimic the bass neons.
+
+The 4 red LEDs give some status about the board operation.  They are
+numbered from right to left and are identified by the lettering on the
+board as D3, D4, D5, and D6, though they're referred to as "LED1",
+"LED2", "LED3", and "LED4", respectively.
+
+LED1 is on for every 250 out of 1000 polls of the USB keyboard emulation
+interface.  Since this interface is polled 1000 times per second (at all
+times by Windows but only while being used under Linux), it should flash
+once per second.
+
+LED2 is similar to LED1 but reflects the "generic" (vendor specific) HID
+interface.  This is what's generally used by custom input drivers.  Note
+that most of these drivers disable keyboard event inputs, which will
+cause LED1 to stop flashing when they're actually in use.
+
+Note that LED1 and LED2 will flash at a rate that is dependent on the
+actual attained poll rate of the device.  This can be used as a visual
+indicator of your poll rate.  If they're flashing once per second,
+you're at 1000Hz.  If it's every 2 seconds, you're polling at 500Hz.
+While the board asks for 1000Hz, some OSes (the Ubuntu patched Linux
+kernels seem the most common example) run somewhat slower, but
+everything tested seems to do at least 500Hz, which is still probably
+faster than any normal use could require.
+
+LED3 is on for every 250 of 1000 USB start-of-frame packets received by
+the board.  The USB specification requires that there be 1000 SOFs every
+second.  Therefore, this LED should always flash once per second,
+regardless of activity on LED1 or LED2, as long as USB is connected and
+the OS running.  If it's doing something else, suspect a problem with
+your OS or USB drivers.
+
+LED4 is on whenever the board thinks it's receiving a "valid" video
+signal and has the video passthrough function enabled.  This can be used
+to verify that you're actually outputting the kind of video that you
+think you are and/or that your DIP switch settings for video modes are
+correct.  Note that if you have the DIP switches set to "free range",
+this LED will always be on as the board considers any signal (even no

@@ -1,0 +1,4 @@
+LIBRARY libsystem
+
+EXPORTS
+	sys_debug_dip_set_param

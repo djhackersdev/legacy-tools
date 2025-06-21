@@ -1,0 +1,267 @@
+    SpiceTools
+        Game Support
+        Sound Voltex
+        Beatmania IIDX
+        Jubeat
+        Reflec Beat
+        GitaDora
+        Nostalgia
+        Coins
+        Readers (Experimental)
+        HID Smartcard Readers
+        SpiceTools API
+        Bemanitools 5 API Compatibility
+        Keybindings/Analogs
+        Keypad Bindings
+        Command Line Options
+            Examples
+        Download
+        Installation
+        Usage
+        Contributing
+        Changelog
+
+SpiceTools
+
+Ainsley's preferred toolkit.
+
+https://i.imgur.com/TNFaHSf.png
+
+This tool allows you to run several Konami games on your PC.
+It's an earliest version, so you may experience some crashes caused from weird HID devices. If you experience this, please unplug unnecessary USB devices and try again.
+
+SpiceTools currently consists just of spice(64).exe, so you can keep your game data original and clean.
+Many game dumps have kbt.dll/kld.dll obfuscated or missing, in this case you can use the replacement DLLs below.
+
+Game Support
+
+    Sound Voltex
+    Beatmania IIDX (Tricoro or newer)
+    Jubeat
+    Reflec Beat
+    Dance Evolution
+    Dance Dance Revolution
+    Beatstream
+    Road Fighters 3D
+    Pop'n Music
+    Museca
+    Metal Gear Arcade
+    GitaDora
+    Nostalgia
+    Bishi Bashi Channel
+    Quiz Magic Academy
+    More to come...
+
+
+
+Comes in 32bit and 64bit builds.
+
+Sound Voltex
+
+Full feature support.
+
+Printer fully supported as of 03/13/2018, can save prints in PNG/BMP/TGA to a customizable output path.
+Optionally able to clean up saved images on game boot time.
+Keyboard play should be perfectly working. If you dont want to use the mouse for the knobs, you can make use of native knob emulation, which works just as it works in Keyshoot-Mania.
+
+Beatmania IIDX
+
+Works as expected.
+For using your own cameras in IIDX 25 or newer, just plug them in (and hopefully your camera isn't incompatible with the game) and they shall work.
+It's also possible to use one camera only instead of the two the game wants, just dismiss the camera error on game boot as you would with no cameras connected, and your camera should be registered in-game as CAMERA A.
+If you're not happy with the order of the automatic camera detection, just use -iidxflipcams and CAMERA B will be CAMERA A, etc. Shoutouts to Xyen for assistance.
+You can bind the effectors as analog inputs if you want, this is especially interesting for IIDX 25 and newer, where the effects are software based and not tied to specific sound cards anymore. When not bound, they will stay on the maximum value.
+
+Jubeat
+
+This makes use of the SpiceTools Touch™ module, which makes you able to play any version of the game just fine with both mouse and HID compliant touch devices on Windows 7 or newer.
+The Dell ST2240T touch screen seems to work well, especially the new 2017 revision.
+Card insert button available and enabled by default.
+Touch the area to insert a card in attract mode.
+
+Reflec Beat
+
+Including emulation of the real IR touch screen device so the game should just act like the real one.
+This makes use of the SpiceTools Touch™ module, which makes you able to play any version of the game just fine with both mouse and HID compliant touch devices on Windows 7 or newer.
+The Dell ST2240T touch screen seems to work well, especially the new 2017 revision.
+Card insert button available and enabled by default.
+For this game it's not visible in fullscreen but still works just as fine.
+Touch the area to insert a card in attract mode.
+http://i.imgur.com/MK2bQcX.png
+
+GitaDora
+
+To switch between Guitar/Drum you need to specify the specific eamuse config to load. By default, SpiceTools first tries to load ea3-config.xml, then eamuse-config.xml.
+Since the latter one is the default for the drums, for the guitar you have to override the path setting:
+spice64.exe -e prop\eamuse-config2.xml
+Additionally, since GitaDora uses 4 channels by default, you can specify -2ch to run it with 2 channel audio instead. If you don't and have a normal 2 channel setup, the game will refuse to play sound/tracks.
+
+Nostalgia
+
+Spicetools will auto-detect whether or not a compatible touch device is present. If a touch device is detected, the mouse cursor will disappear. If no touch device is detected, the mouse cursor will be visible in-game. During boot-up process, do not click or else the game may pre-maturely crash. You may safely click after the monitor check is completed. It's been found that Virtual HID Touch devices commonly found with remote access software may cause detection issues, take note of that.
+
+Coins
+
+There's a coin emulation working for most games.
+Press F1 to insert a single coin.
+Some games have an additional/different coin key.
+
+Readers (Experimental)
+
+If you have an original Wavepass reader and have it connected to a COM port on your computer, SpiceTools should be able to use it. It was being created and tested with the newer readers also used in the newer Pop'n Music games.
+Example for one reader on COM3: -reader COM3
+Example for two readers for P1/2 on COM3 and COM4: -reader COM3 -reader COM4
+Example for one reader with P1/2 toggle on NumLock: -togglereader COM3
+
+HID Smartcard Readers
+
+To activate HID smartcard reader functionality, use "-scard". It will use the first reader it detects for P1 and the second one for P2. To flip the order of detection, use "-scardflip".
+It will attempt to read the UID of all and every card swiped and feed it to the game.
+Thanks to refutatio for his contribution to this.
+
+SpiceTools API
+
+SpiceTools has its own API with a custom protocol. The main goals were simplicity, portability and extensibility, so TCP/JSON was chosen, allowing fast access over network.
+It optionally supports passwords/encryption and its response time on LAN was tested to be below 1ms (as long as extended API logging isn't enabled manually).
+For details and how to use it, check out README.md in the included source. Additionally, python and dart libraries are provided for easy communication.
+Key features are card/coin insertions, read/write access for keypads/analogs/buttons/lights, status information and memory read/write via raw addresses and signatures.
+We're currently working on an Android/iOS companion app using this API, stay tuned!
+
+Bemanitools 5 API Compatibility
+
+On request, I've added a basic BT5 API integration as of 03/13/2018.
+This feature can be enabled with `-bt5api` and currently makes use of eamio.dll only.
+Currently, this can be used for applications such as the popular NFCeamuse app which can be found elsewhere.
+If I see interest in making this feature more complete, such as loading the other parts of the API (geninput.dll and whatnot), this feature might be extended in the future.
+
+Keybindings/Analogs
+
+As of beta, Buttons can be bound via either RawInput (the default) or "Naive" (GetAsyncKeyState).
+RawInput supports all kinds of HID controllers (your FP7 is one, your XBOX360 Controller as well), however it's bound to a device.
+If you plug your controller into another USB slot, SpiceTools does not have a way to detect it and will report the device as "missing", until you plug it back into where you originally configured it.
+Using the "naive" approach, only keyboard buttons can be detected, however this will then work with any keyboard attached, it's not bound to a device.
+
+Since May 2018 you can also bind MIDI devices for "one-shot" types like drums and hold types like piano keys and launchpads.
+
+Keypad Bindings
+
+As of beta, you can bind your P1/P2 keypads to specific devices.
+The number buttons will be, you guessed it, the numbers, and the Plus (+) key will be the card insert trigger.
+The card files can be named card0.txt for P1 and card1.txt for P2, placed in your game root, they will work automatically.
+Alternatively you can adjust the path of your card file in the configuration utility.
+If you don't specify any keypad, SpiceTools will use any keypad available, use the top-row number keys and have a card trigger on backspace as well. Toggling players via NumLock may or may not work, windows is dumb.
+
+Command Line Options
+
+These are for advanced usage. Don't be scared if you don't understand what most of them do.
+=> Moved to config so that I don't have to maintain two lists seperately.
+Check the "About" tab in the latest release.
+
+Examples
+
+    Run SDVX windowed: spice -w
+    Run SDVX windowed (long version): spice soundvoltex.dll -io -sdvx -w
+    Run Reflec Beat with some hook: spice -k hook.dll
+    Run Reflec Beat with some hook (long version): spice reflecbeat.dll -io -rb -k hook.dll
+
+
+
+The short versions are using game auto-detection. This makes it possible for you to just double click spice.exe to run the game, except if you want to use some special options.
+It is planned, that once the configuration is done, you can specify your options there, so you don't have to deal with custom batch scripts all the time.
+
+Download
+
+Currently no version numbers, so for now you have to check the changelog.
+Bugs may be present, so please report any issues so they can be fixed.
+Download the latest version for the newest features, but be aware that it might have bugs.
+Just as a little reminder, the whole tool is still very new and might not be stable for you.
+If you want your issues to get fixed, then you will have to give me feedback.
+
+Latest Download (incl. source code) (04/14/2019): Direct
+
+Previous Download (03/14/2019): Direct
+Alpha Download (01/23/2018): Direct
+Legacy Download (07/28/2017): Direct
+
+No it doesn't contain malware, your anti-virus solution is unreliable and retarded.
+I don't think I will ever get around false positives anymore. If you don't trust it, don't run it, just like with other software you download from the internet.
+
+Installation
+
+1. Extract the contents of either the 32 or 64 folder into your game folder depending on your game.
+2. ??
+3. Profit
+
+Usage
+
+Run configuration window with the standalone spicecfg.exe (or spice.exe -cfg) to configurate key bindings.
+Double click spice(64).exe to run in simple mode.
+For advanced settings create a batch file to launch spice.exe with custom options described above.
+
+Contributing
+
+If you want to help fix bugs and adding features, just contact me via DM on OOC or ask Kon on Discord. We can add you to our Git repository, so you can directly submit patches.
+
+Contributors:
+
+    kon
+    cube
+    felix
+    dinsfire
+    nolm
+
+
+
+Changelog
+
+Not including hotfixes.
+
+04/13/2019 - DDR SD Mode lights
+Sextet (LIT Board) support
+PIUIO hardware support
+Windowed mode improvements
+03/14/2019 - IIDX API module
+EA server maintenance toggle
+SDVX BI2A support
+02/19/2019 - Network API server
+Run outside of modules dir
+Misc bug fixes
+01/27/2019 - Jubeat Knit support
+Quiz Magic Academy support
+Museca/Jubeat lights
+Smartcard NumLock toggle
+01/11/2019 - Open Source!
+Jubeat Copious support
+Bishi Bashi Channel support
+PacDrive/PocketVoltex support
+KBT/KLD now are optional
+Stacktraces, quiet crash
+Huge code refactoring
+Stability improvements/fixes
+11/03/2018 - IIDX 25 (io, cams, light)
+IIDX effector bindings
+HID lighting output support
+Button Multibinding
+HID readers e.g. zyp's cardio
+Bug fixes as usual
+10/04/2018 - Bishi Bashi Channel support, bugfixes
+08/17/2018 - DDR X3 and Nostalgia support, improved network code
+06/25/2018 - HID smartcard readers
+06/08/2018 - DDR support
+06/07/2018 - GitaDora/HID/EA bug fixes
+05/18/2018 - GitaDora and MIDI devices
+04/21/2018 - Card path configuration
+04/09/2018 - HID/Analog/RawInput support - entering BETA state
+03/13/2018 - SDVX printer emulation, felica, partial BT5 API support
+01/23/2018 - MUSECA analog slowdown, fixes
+01/21/2018 - many fixed bugs/crashes
+11/15/2017 - Fixed the Museca sound issue
+11/14/2017 - Added Museca, Pop'n Music, wavepass reader support
+09/11/2017 - Added Road Fighters 3D
+08/29/2017 - Custom modules path, UAC Admin Manifest, Netfix module
+08/28/2017 - Bug Fixes
+08/21/2017 - 64bit support, Beatstream support, more command line options
+07/28/2017 - Fixed I/O for IIDX and SDVX
+07/26/2017 - configuration tool, jubeat, touch module, more options, bug fixes
+06/01/2017 - added DEA support
+05/31/2017 - public release

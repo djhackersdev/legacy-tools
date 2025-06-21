@@ -1,0 +1,2 @@
+remove 640,480
+ModeLine "640x480@60i" 11.97 640 664 736 760 480 484 492 525 +Hsync +Vsync Interlace

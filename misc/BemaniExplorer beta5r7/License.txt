@@ -1,0 +1,14 @@
+This software is licensed under:
+
+Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Intl.
+			BY-NC-SA
+
+http://creativecommons.org/licenses/by-nc-sa/4.0/
+
+TargaImage.dll is licensed under CPOL:
+http://www.codeproject.com/info/cpol10.aspx
+
+(For developers)
+Yes, you are allowed to decompile the program and use bits of the
+code in one (or multiple) of your projects, but abide by the license and give
+proper credit where necessary.

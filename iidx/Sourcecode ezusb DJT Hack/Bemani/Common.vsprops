@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="Common"
+	OutputDirectory="$(BinDir)"
+	IntermediateDirectory="$(ObjDir)"
+	>
+	<Tool
+		Name="VCCLCompilerTool"
+		AdditionalIncludeDirectories=".."
+		PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS"
+		UsePrecompiledHeader="2"
+		PrecompiledHeaderThrough="libutil/stdafx.h"
+	/>
+	<Tool
+		Name="VCLinkerTool"
+		AdditionalLibraryDirectories="$(OutDir);$(SolutionDir)imports"
+	/>
+	<UserMacro
+		Name="BinDir"
+		Value="$(SolutionDir)$build-$(ConfigurationName)$\bin\"
+	/>
+	<UserMacro
+		Name="ObjDir"
+		Value="$(SolutionDir)$build-$(ConfigurationName)$\obj\$(ProjectName)"
+	/>
+</VisualStudioPropertySheet>

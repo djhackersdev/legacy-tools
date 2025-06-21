@@ -1,0 +1,30 @@
+1) Open BemaniExplorer.exe as Administrator
+2) Open .ifs or .2dx file
+3) You can export all by right-clicking the B icon/open button/treeview
+4) You can export single by right-clicking the image
+5) You can convert .sd9 files by right-clicking the B icon/open button/treeview
+
+> Please report bugs to Arena (PM)
+
+> Requirements:
+	Windows XP or higher
+	.NET Framework 3.0
+	VCRedist_x86 2013
+	2GB of usable system RAM (x86 4GB> preferred, x64 6GB> preferred)
+	any CPU
+
+> Notes:
+	Image parsing is done with the CPU, loading times may vary depending
+	on your CPU.
+
+	If you report errors, please include all the available logs.
+
+	The usage of the application beyond this point is the full responsibility
+	of whoever uses it.
+
+	If in any case file damage or physical damage occurs with this program as
+	a cause (I'm pretty certain it wont), the end user is responsible.
+
+	(For developers) the cache folder is now hidden to prevent unexperienced people
+	from faffing about and breaking the program, you can get to it by adding "\cache" to
+	the directory where the .exe is located in

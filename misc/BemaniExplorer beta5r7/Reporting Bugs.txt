@@ -1,0 +1,22 @@
+Please use the following steps to report bugs:
+
+1) Open BemaniExplorer
+2) Right-click the titlebar
+3) Click BUG REPORT
+4) Fill out the form
+5) Generate the report
+6) Optional, but please do: Upload the report (for ex. Dropbox or Pastebin)
+7) PM the report to Arena
+
+NOTE: You do not have to include the log files in your upload
+	they are automatically included in the bug report file
+
+If you have a very specific bug (e.g. the program not outputting any errors)
+please debug before you open the archive/file(s) and attach the debug log.
+
+This can be done by:
+
+1) Right-click the titlebar
+2) Open the DEBUG CONSOLE
+3) Open your archive/file(s)
+4) Right click the debug console and click EXPORT

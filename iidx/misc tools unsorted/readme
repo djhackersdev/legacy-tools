@@ -1,0 +1,55 @@
+I don't have enough time to work on some projects right now, and similar things are already out there so this is nothing new, so I'll put these up here for now.
+
+Most of these will require vcredist_x86.exe 2013 to be installed.
+
+BMx->IIDX:
+bmx2bemani with user interface
+Requires libsndfile-1.dll to be alongside bmx2bemani.exe. Usage should be somewhat obvious. Audio must be converted to appropriate formats. You can use the following scripts to facilitate this (assumes sox available through global path or in directory, get it at http://sourceforge.net/projects/sox/files/sox/ ):
+convert_keysounds.bat (wav/ogg -> ms-adpcm, run .bat in directory along side .bmx/keysounds)
+revert_keysounds.bat (restore wav/ogg files, same usage as convert_keysounds)
+soxstat.bat (useful stats for volume adjustment, etc)
+
+Preview related stuff:
+bmx2wav (not my tool, use to create single complete audio from bmx+wavs)
+wav2previews.bat (batch script to make preview clips from complete audio, modify as needed, drag and drop .wav onto .bat)
+wav2preview (convert preview clip to _pre.2dx, drag and drop preview .wav onto .exe)
+
+Tricoro and up music_data binary editor:
+bemaniMDE GUI editor
+Usage should be obvious. Currently, you must save any edits to each song before going to another song, sorry.
+
+Data extraction:
+dumpImgFS (extract files from .ifs from almost any bemani game, retains directory structure and file names used inside the IFS files, drag and drop .ifs file on dumpImgFS.exe)
+txp2tga (extracts textures from txp .bin format graphics used in Resort Anthem and others, operates on .bin file directly)
+tex2tga (extracts textures from new graphics formats used in Tricoro, Sunny Park, etc. Extract raw files from .ifs using dumpImgFS first, then run tex2tga where texturelist.xml resides)
+dumpMD (music_data dumper, for tricoro/spada, outputs TSV text file)
+2dx2wavs (maybe not very good/useful... extracts unmodified ms-adpcm .wavs from .2dx, at least for IIDX/popn .2dx files, meaningless naming)
+
+Texture creation:
+tga2tex
+Converts 32 bit TGA format images to compressed and hashed-filename format texture file used by Tricoro/Sunny Park/etc in .ifs file. Image format must be 32 bit TGA with alpha channel (even if no transparencies are used), UNCOMPRESSED (if using GIMP, RLE encoding disabled) and with origin at TOP-LEFT. This is the same format output by tex2tga, so if you are going to use this to replace game textures, use the extracted textures as a template as they must also be exactly the same resolutions. You should be able to drag and drop a .tga file onto tga2tex.exe, and it should output a file with 16 characters. Command line usage would be tga2tex.exe <imagename.tga> <imagename>. Place this file into the tex\ directory from the extracted IFS data (should overwrite an existing texture), and rebuild IFS. Compression algorithm is a bit slow, I will improve this some time....
+
+IFS creation:
+buildImgFS
+Create .ifs for songs/textures. Usage is buildImgFS <directory name> <ifsarg> where <ifsarg> is iidx/popn/gfdm/tex (I forget, I might have added support for others, just use iidx or tex if in doubt) where iidx, popn, gfdm are used if you are building .ifs for songs for those games, and tex if building ifs for graphics. Make sure to use the same exact directory structure, folder names, and file names obtained from dumpImgFS, with _imgfs removed from top directory name. No game DLL modifications or anything needed; drop in replacements.
+
+
+If you are specifically interested in graphic/texture modification/injection then hopefully these images will better explain the process (refer to descriptions above for notes on specific tools used in the process), for any and all textures in various games (similar process for building song or other ifs as well):
+
+http://s30.postimg.org/c9pi9p8u9/image.png
+1. Use dumpImgFS to extract the raw files from the .ifs containing the textures you want to modify. DO NOT modify any filenames or file structure, these are the filenames and folder names given by Konami and used by the game.
+
+http://s29.postimg.org/jio3viwpz/image.png
+2. Use tex2tga to convert the raw texture files to TGA as shown. The output is inside the tex folder in the IFS extracted data. Modify the textures as needed using the extracted TGA as a template. Make sure the format is 32 bit TGA (includes alpha channel), no compression, origin at top-left. Save as same file name (important for hashed file name used in ifs).
+
+http://s28.postimg.org/kwc2g0zdp/image.png
+3. Use tga2tex to compress and name the texture for reinsertion into an ifs as shown. Again, do not modify any file names.
+
+http://s27.postimg.org/c59mzn2wz/image.png
+4. Replace the texture file in the tex\ directory of the extracted ifs data and overwrite the existing file.
+
+http://s14.postimg.org/t2j2qpwup/image.png
+5. Finally, remove _imgfs from the top directory folder name, and rebuild the ifs using buildImgFS as shown. The resulting .ifs file can just be directly dropped in place of the stock ifs file, no need for any other modifications to the game.
+
+I'll try to write better documentation later, just leaving these here for now. Let me know if some instruction is incorrect or insufficient/unclear.
+

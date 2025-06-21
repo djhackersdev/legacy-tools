@@ -1,0 +1,6 @@
+TargaImage.dll by David Polomis modified by Arena for transperancy fix
+TargaImage.dll is licensed under CPOL:
+http://www.codeproject.com/info/cpol10.aspx
+TargaImage.dll is now included in the program
+
+Binaries by Mutiny

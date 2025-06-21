@@ -1,0 +1,59 @@
+BETA1 -> BETA2
+
+Added .2dx support
+Fixed loading .ifs that contain solely audio
+
+BETA2 -> BETA3
+
+Added a seperate load thread, UI now no longer freezes while loading
+Added a progress bar for all of you who like knowing how far it is with loading
+Possible compatibility improvements
+Temporary dirty fix for extraction failing when cache had just been cleared
+
+BETA3 -> BETA4
+
+Added .sd9 support (right click icon/open button/treeview)
+Minor improvements
+
+BETA4 -> BETA4FIX
+
+Fixed .2dx files stucking after creating cache
+
+BETA4 -> BETA5
+
+Performance improvements
+Changed lame progressbar to a circular one
+Fixed failing to open an archive after the cache was cleared
+Binary files are now included in the executable
+TargaImage is now included in the executable
+Changed the horribly misspelled "dependancies" to "runtimes" (in the packed version)
+??? =)
+
+BETA5 -> BETA5 R1
+
+Fixed application occasionally failing to load one archive after the other with an image selected
+
+BETA5 R1 -> BETA5 R2
+
+Added a notification for available updates (only visible when running out-of-date version >BETA5 R2)
+
+BETA5 R2 -> BETA5 R3
+
+Added a bug-report generation tool
+
+BETA5 R3 -> BETA5 R4
+
+Added a debug console for troubleshooting
+
+BETA5 R4 -> BETA R5
+
+Cache now relies on md5 checksum instead of file name
+Added pirate-chan ^w^
+
+BETA5 R5 -> BETA5 R6
+
+Fixed the problem occuring with read-only .ifs / .2dx files
+
+BETA5 R6 -> BETA5 R7
+
+Fixed arrow-navigation in the file treeview
